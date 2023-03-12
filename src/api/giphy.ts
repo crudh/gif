@@ -1,8 +1,6 @@
-import {
-  GifsResult as GiphyGifsResult,
-  GiphyFetch,
-  SearchOptions as GiphySearchOptions,
-} from "@giphy/js-fetch-api";
+import "server-only";
+
+import { GifsResult as GiphyGifsResult, GiphyFetch } from "@giphy/js-fetch-api";
 import { IGif as GiphyGif } from "@giphy/js-types";
 import { Gif, GifsResult, SearchOptions } from "../../types/Gif";
 import { giphyApiKey } from "../constants";
