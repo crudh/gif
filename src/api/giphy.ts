@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 
 import { GifsResult as GiphyGifsResult, GiphyFetch } from "@giphy/js-fetch-api";
 import { IGif as GiphyGif } from "@giphy/js-types";
@@ -21,11 +22,12 @@ const transformResult = (result: GiphyGifsResult): GifsResult => ({
   gifs: result.data.map(transformGif),
 });
 
-export const searchGifs = async (
-  terms: string,
-  options: SearchOptions
-): Promise<GifsResult> => giphy.search(terms, options).then(transformResult);
+export const searchGifs = cache(
+  async (terms: string, options: SearchOptions): Promise<GifsResult> =>
+    giphy.search(terms, options).then(transformResult)
+);
 
-export const trendingGifs = async (
-  options: SearchOptions
-): Promise<GifsResult> => giphy.trending(options).then(transformResult);
+export const trendingGifs = cache(
+  async (options: SearchOptions): Promise<GifsResult> =>
+    giphy.trending(options).then(transformResult)
+);
