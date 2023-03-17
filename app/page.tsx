@@ -14,7 +14,7 @@ const Home = async ({
   const gifsResult = await gifSearch(search, { offset: 0, limit: 20 });
 
   return (
-    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {gifsResult.gifs.map((gif) => (
         <GifPreview key={gif.id} gif={gif} />
       ))}
