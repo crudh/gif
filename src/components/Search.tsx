@@ -11,18 +11,20 @@ export const Search = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const search = searchRef.current?.value ?? "";
+    const search = (searchRef.current?.value ?? "").trim();
+    if (search === "") return;
+
     router.push(`/?search=${search}`);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mt-2 flex rounded-md shadow-sm">
-        <div className="relative flex flex-grow items-stretch focus-within:z-10">
+      <div className="flex mt-2 rounded-md shadow-sm">
+        <div className="relative flex items-stretch flex-grow focus-within:z-10">
           <input
             type="text"
             name="search"
-            className="p-4 bg-black block w-full rounded-none rounded-l-md border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg "
+            className="block w-full p-4 bg-black border-0 rounded-none shadow-sm rounded-l-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg "
             placeholder="Search for a gif"
             defaultValue={searchParams.get("search") ?? ""}
             ref={searchRef}
