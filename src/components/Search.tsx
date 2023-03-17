@@ -12,8 +12,6 @@ export const Search = () => {
     event.preventDefault();
 
     const search = (searchRef.current?.value ?? "").trim();
-    if (search === "") return;
-
     router.push(`/?search=${search}`);
   };
 
