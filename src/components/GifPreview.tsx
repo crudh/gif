@@ -34,7 +34,7 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
     <div
       key={gif.id}
       onClick={handleClick}
-      className={`flex h-48 p-1 relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
+      className={`flex p-1 relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
     >
       {!isPreview && (
         <button title="Copy link" onClick={handleCopyUrl}>
@@ -45,7 +45,15 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
           </div>
         </button>
       )}
-      <img src={src} alt={gif.altText ?? ""} className="w-full rounded-lg" />
+      <img
+        src={src}
+        alt={gif.altText ?? ""}
+        className="w-full rounded-lg"
+        style={{
+          width: gif.width,
+          height: gif.height,
+        }}
+      />
     </div>
   );
 };

@@ -1,8 +1,10 @@
 export type Gif = {
   id: string | number;
-  url: string;
-  previewUrl: string;
   altText: string | undefined;
+  url: string;
+  width: number;
+  height: number;
+  previewUrl: string;
 };
 
 export type GifsResult = {

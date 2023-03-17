@@ -10,9 +10,11 @@ const giphy = new GiphyFetch(giphyApiKey);
 
 const transformGif = (gif: GiphyGif): Gif => ({
   id: gif.id,
-  url: gif.images.downsized.url,
-  previewUrl: gif.images.preview_gif.url,
   altText: gif.alt_text,
+  url: gif.images.downsized.url,
+  width: gif.images.fixed_height.width,
+  height: gif.images.fixed_height.height,
+  previewUrl: gif.images.fixed_height.url,
 });
 
 const transformResult = (result: GiphyGifsResult): GifsResult => ({
