@@ -21,7 +21,11 @@ const transformResult = (result: GiphyGifsResult): GifsResult => ({
   gifs: result.data.map(transformGif),
 });
 
-export const gifSearch = async (
+export const searchGifs = async (
   terms: string,
   options: SearchOptions
 ): Promise<GifsResult> => giphy.search(terms, options).then(transformResult);
+
+export const trendingGifs = async (
+  options: SearchOptions
+): Promise<GifsResult> => giphy.trending(options).then(transformResult);
