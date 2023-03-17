@@ -5,7 +5,7 @@ export const GifsGrid = ({ gifsResult }: { gifsResult: GifsResult }) => {
   return (
     <div className="flex flex-wrap justify-center gap-4">
       {gifsResult.gifs.map((gif, index) => (
-        <GifPreview key={index} gif={gif} />
+        <GifPreview key={`${gif.id}-${index}`} gif={gif} />
       ))}
     </div>
   );
