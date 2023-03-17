@@ -4,6 +4,9 @@ import { GifPreview } from "../src/components/GifPreview";
 
 const GIF_LIMIT = 50;
 
+// TODO temporary until next Next release, then using searchParams will do this automatically
+export const dynamic = "force-dynamic";
+
 const Home = async ({
   searchParams: { search = "" },
 }: {
