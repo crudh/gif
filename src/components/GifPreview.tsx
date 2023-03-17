@@ -49,6 +49,8 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
         src={src}
         alt={gif.altText ?? ""}
         className="w-full rounded-lg"
+        width={gif.width}
+        height={gif.height}
         style={{
           width: gif.width,
           height: gif.height,

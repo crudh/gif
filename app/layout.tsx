@@ -17,7 +17,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
         <div>{children}</div>
         <div className="flex justify-center pt-8 pb-2">
-          <img src="/giphy.png" alt="Powered by Giphy" />
+          <img
+            src="/giphy.png"
+            alt="Powered by Giphy"
+            width="200"
+            height="22"
+          />
         </div>
       </body>
     </html>
