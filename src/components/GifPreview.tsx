@@ -6,7 +6,7 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
   return (
     <div
       key={gif.id}
-      className={`flex p-1 relative rounded-lg hover:cursor-pointer transition-opacity`}
+      className="relative flex p-1 transition-opacity rounded-lg"
     >
       <GifClipboard gif={gif} />
       <img
