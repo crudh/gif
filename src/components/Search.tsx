@@ -1,18 +1,20 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { FormEvent, useRef } from "react";
 
 export const Search = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const searchRef = useRef<HTMLInputElement>(null);
+
+  const params = useParams();
+  const searchTerm = decodeURIComponent(params.searchTerm ?? "");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const search = (searchRef.current?.value ?? "").trim();
-    router.push(`/?search=${search}`);
+    router.push(`/search/${search}`);
   };
 
   return (
@@ -24,7 +26,7 @@ export const Search = () => {
             name="search"
             className="block w-full p-4 bg-black border-0 rounded-none shadow-sm rounded-l-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg "
             placeholder="Search for a gif"
-            defaultValue={searchParams.get("search") ?? ""}
+            defaultValue={searchTerm}
             ref={searchRef}
           />
         </div>
