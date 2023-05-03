@@ -5,6 +5,7 @@ export type Gif = {
   width: number;
   height: number;
   previewUrl: string;
+  previewUrlFull: string;
 };
 
 export type GifsResult = {
