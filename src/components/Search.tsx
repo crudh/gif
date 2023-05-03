@@ -28,6 +28,7 @@ export const Search = () => {
             placeholder="Search for a gif"
             defaultValue={searchTerm}
             ref={searchRef}
+            autoFocus
           />
         </div>
         <button

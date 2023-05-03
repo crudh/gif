@@ -12,9 +12,10 @@ const transformGif = (gif: GiphyGif): Gif => ({
   id: gif.id,
   altText: gif.alt_text,
   url: gif.images.downsized.url,
-  width: gif.images.fixed_height.width,
-  height: gif.images.fixed_height.height,
-  previewUrl: gif.images.fixed_height.url,
+  width: gif.images.fixed_height_downsampled.width,
+  height: gif.images.fixed_height_downsampled.height,
+  previewUrl: gif.images.fixed_height_downsampled.url,
+  previewUrlFull: gif.images.fixed_height.url,
 });
 
 const transformResult = (result: GiphyGifsResult): GifsResult => ({

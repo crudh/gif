@@ -1,16 +1,29 @@
+"use client";
+
+import { useState } from "react";
 /* eslint-disable @next/next/no-img-element */
 import { Gif } from "../../types/Gif";
 import { GifClipboard } from "./GifClipboard";
 
 export const GifPreview = ({ gif }: { gif: Gif }) => {
+  const [src, setSrc] = useState(gif.previewUrl);
+
+  const isPreview = src === gif.previewUrl;
+  const handleClick = () => setSrc(gif.previewUrlFull);
+
+  const conditionalContainerStyles = isPreview
+    ? "opacity-60 hover:ring-2 hover:ring-inset hover:ring-indigo-600"
+    : "ring-2 ring-inset ring-yellow-400";
+
   return (
     <div
       key={gif.id}
-      className="relative flex p-1 transition-opacity rounded-lg"
+      className={`flex p-1 relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
+      onClick={handleClick}
     >
-      <GifClipboard gif={gif} />
+      {!isPreview && <GifClipboard gif={gif} />}
       <img
-        src={gif.previewUrl}
+        src={src}
         alt={gif.altText ?? ""}
         className="w-full rounded-lg"
         width={gif.width}
