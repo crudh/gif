@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-/* eslint-disable @next/next/no-img-element */
 import { Gif } from "../../types/Gif";
 import { GifClipboard } from "./GifClipboard";
 
