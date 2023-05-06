@@ -8,7 +8,7 @@ export const revalidate = 86400;
 const Page = async () => {
   const gifsResult = await trendingGifs({ offset: 0, limit: defaultGifLimit });
 
-  return <GifsGrid gifsResult={gifsResult} />;
+  return <GifsGrid gifs={gifsResult.gifs} />;
 };
 
 export default Page;

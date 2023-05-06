@@ -1,10 +1,10 @@
-import { GifsResult } from "../../types/Gif";
+import { Gif } from "../../types/Gif";
 import { GifPreview } from "./GifPreview";
 
-export const GifsGrid = ({ gifsResult }: { gifsResult: GifsResult }) => {
+export const GifsGrid = ({ gifs }: { gifs: Gif[] }) => {
   return (
     <div className="flex flex-wrap justify-center gap-4">
-      {gifsResult.gifs.map((gif, index) => (
+      {gifs.map((gif, index) => (
         <GifPreview key={`${gif.id}-${index}`} gif={gif} />
       ))}
     </div>
