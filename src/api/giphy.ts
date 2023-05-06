@@ -1,4 +1,3 @@
-import "server-only";
 import { cache } from "react";
 
 import { GifsResult as GiphyGifsResult, GiphyFetch } from "@giphy/js-fetch-api";
