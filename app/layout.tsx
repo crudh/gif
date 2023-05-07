@@ -2,7 +2,7 @@ import { Search } from "../src/components/Search";
 import "./globals.css";
 
 export const metadata = {
-  title: "Gif search",
+  title: "gifs.run - The fastest way to share gifs",
   description:
     "Quickly get the perfect gif for your message adapted for social media size restrictions",
 };
