@@ -1,5 +1,7 @@
 import { searchGifs } from "../../../src/api/giphy";
+import { GifPreview } from "../../../src/components/GifPreview";
 import { GifsGrid } from "../../../src/components/GifsGrid";
+import { MoreGifs } from "../../../src/components/MoreGifs";
 import { defaultGifLimit } from "../../../src/constants";
 
 // 24 hours
@@ -12,7 +14,16 @@ const Page = async ({ params }: { params: { searchTerm: string } }) => {
     limit: defaultGifLimit,
   });
 
-  return <GifsGrid gifsResult={gifsResult} />;
+  const endOfGifs = gifsResult.gifs.length < defaultGifLimit;
+
+  return (
+    <GifsGrid>
+      {gifsResult.gifs.map((gif, index) => (
+        <GifPreview key={`${gif.id}-${index}`} gif={gif} />
+      ))}
+      {!endOfGifs && <MoreGifs searchTerm={searchTerm} />}
+    </GifsGrid>
+  );
 };
 
 export default Page;
