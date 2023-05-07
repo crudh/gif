@@ -14,12 +14,14 @@ const Page = async ({ params }: { params: { searchTerm: string } }) => {
     limit: defaultGifLimit,
   });
 
+  const endOfGifs = gifsResult.gifs.length < defaultGifLimit;
+
   return (
     <GifsGrid>
       {gifsResult.gifs.map((gif, index) => (
         <GifPreview key={`${gif.id}-${index}`} gif={gif} />
       ))}
-      <MoreGifs searchTerm={searchTerm} />
+      {!endOfGifs && <MoreGifs searchTerm={searchTerm} />}
     </GifsGrid>
   );
 };

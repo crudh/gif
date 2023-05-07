@@ -12,12 +12,18 @@ export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
   const [intersectionRef, isIntersecting] =
     useIntersectionObserver<HTMLDivElement>();
   const [moreGifs, setMoreGifs] = useState<Gif[]>([]);
+  const [endOfGifs, setEndOfGifs] = useState(false);
 
   const handleLoadMore = async () => {
     const gifs = await handleSearchGifs(
       searchTerm,
       moreGifs.length + defaultGifLimit
     );
+
+    if (gifs.length < defaultGifLimit) {
+      setEndOfGifs(true);
+      return;
+    }
 
     setMoreGifs([...moreGifs, ...gifs]);
   };
@@ -34,7 +40,7 @@ export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
         <GifPreview key={`${gif.id}-${index}`} gif={gif} />
       ))}
       <div ref={intersectionRef} className="flex justify-center w-full p-8">
-        {isIntersecting && <SpinnerIcon />}
+        {!endOfGifs && isIntersecting && <SpinnerIcon />}
       </div>
     </>
   );
