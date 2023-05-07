@@ -6,10 +6,11 @@ import { GifsGrid } from "./GifsGrid";
 import { defaultGifLimit } from "../constants";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { handleSearchGifs } from "../actions";
+import { SpinnerIcon } from "../icons/SpinnerIcon";
 
 export const LoadMore = ({ searchTerm }: { searchTerm: string }) => {
   const [intersectionRef, isIntersecting] =
-    useIntersectionObserver<HTMLButtonElement>();
+    useIntersectionObserver<HTMLDivElement>();
   const [moreGifs, setMoreGifs] = useState<Gif[][]>([]);
 
   const handleLoadMore = async () => {
@@ -32,13 +33,9 @@ export const LoadMore = ({ searchTerm }: { searchTerm: string }) => {
       {moreGifs.map((gifs, index) => (
         <GifsGrid key={index} gifs={gifs} />
       ))}
-      <button
-        ref={intersectionRef}
-        type="button"
-        // className="relative -ml-px inline-flex items-center gap-x-1.5 rounded-r-md px-3 py-2 text-sm font-semibold ring-1 ring-inset ring-gray-300 hover:bg-gray-600"
-      >
-        Load more
-      </button>
+      <div ref={intersectionRef} className="flex justify-center p-8">
+        {isIntersecting && <SpinnerIcon />}
+      </div>
     </>
   );
 };
