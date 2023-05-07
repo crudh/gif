@@ -2,24 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { Gif } from "../../types/Gif";
-import { GifsGrid } from "./GifsGrid";
 import { defaultGifLimit } from "../constants";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { handleSearchGifs } from "../actions";
 import { SpinnerIcon } from "../icons/SpinnerIcon";
+import { GifPreview } from "./GifPreview";
 
-export const LoadMore = ({ searchTerm }: { searchTerm: string }) => {
+export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
   const [intersectionRef, isIntersecting] =
     useIntersectionObserver<HTMLDivElement>();
-  const [moreGifs, setMoreGifs] = useState<Gif[][]>([]);
+  const [moreGifs, setMoreGifs] = useState<Gif[]>([]);
 
   const handleLoadMore = async () => {
     const gifs = await handleSearchGifs(
       searchTerm,
-      (moreGifs.length + 1) * defaultGifLimit
+      moreGifs.length + defaultGifLimit
     );
 
-    setMoreGifs([...moreGifs, gifs]);
+    setMoreGifs([...moreGifs, ...gifs]);
   };
 
   useEffect(() => {
@@ -30,10 +30,10 @@ export const LoadMore = ({ searchTerm }: { searchTerm: string }) => {
 
   return (
     <>
-      {moreGifs.map((gifs, index) => (
-        <GifsGrid key={index} gifs={gifs} />
+      {moreGifs.map((gif, index) => (
+        <GifPreview key={`${gif.id}-${index}`} gif={gif} />
       ))}
-      <div ref={intersectionRef} className="flex justify-center p-8">
+      <div ref={intersectionRef} className="flex justify-center w-full p-8">
         {isIntersecting && <SpinnerIcon />}
       </div>
     </>
