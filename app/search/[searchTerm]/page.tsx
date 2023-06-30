@@ -7,7 +7,7 @@ import { defaultGifLimit } from "../../../src/constants";
 // 24 hours
 export const revalidate = 86400;
 
-const Page = async ({ params }: { params: { searchTerm: string } }) => {
+const SearchResultPage = async ({ params }: { params: { searchTerm: string } }) => {
   const searchTerm = decodeURIComponent(params.searchTerm);
   const gifsResult = await searchGifs(searchTerm, {
     offset: 0,
@@ -26,4 +26,4 @@ const Page = async ({ params }: { params: { searchTerm: string } }) => {
   );
 };
 
-export default Page;
+export default SearchResultPage;
