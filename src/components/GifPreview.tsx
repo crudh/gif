@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Gif } from "../../types/Gif";
-import { GifClipboard } from "./GifClipboard";
+import { Clipboard } from "./Clipboard";
 
 export const GifPreview = ({ gif }: { gif: Gif }) => {
   const [src, setSrc] = useState(gif.previewUrl);
@@ -20,7 +20,7 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
       className={`flex p-1 relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
       onClick={handleClick}
     >
-      {!isPreview && <GifClipboard gif={gif} />}
+      {!isPreview && <Clipboard text={gif.url} />}
       <img
         src={src}
         alt={gif.altText ?? ""}

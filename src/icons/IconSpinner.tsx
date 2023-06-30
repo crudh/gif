@@ -1,4 +1,4 @@
-export const SpinnerIcon = () => (
+export const IconSpinner = () => (
   <svg
     className="w-8 h-8 mr-3 -ml-1 text-white animate-spin"
     xmlns="http://www.w3.org/2000/svg"

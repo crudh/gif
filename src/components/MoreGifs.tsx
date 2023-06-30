@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Gif } from "../../types/Gif";
 import { defaultGifLimit } from "../constants";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { handleSearchGifs } from "../actions";
-import { SpinnerIcon } from "../icons/SpinnerIcon";
+import { IconSpinner } from "../icons/IconSpinner";
 import { GifPreview } from "./GifPreview";
 
 export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
@@ -14,7 +14,7 @@ export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
   const [moreGifs, setMoreGifs] = useState<Gif[]>([]);
   const [endOfGifs, setEndOfGifs] = useState(false);
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = useCallback(async () => {
     const gifs = await handleSearchGifs(
       searchTerm,
       moreGifs.length + defaultGifLimit
@@ -25,14 +25,14 @@ export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
       return;
     }
 
-    setMoreGifs([...moreGifs, ...gifs]);
-  };
+    setMoreGifs(currentGifs => ([...currentGifs, ...gifs]));
+  }, [moreGifs.length, searchTerm]);
 
   useEffect(() => {
     if (!isIntersecting) return;
 
     handleLoadMore();
-  }, [isIntersecting]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isIntersecting, handleLoadMore]);
 
   return (
     <>
@@ -40,7 +40,7 @@ export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
         <GifPreview key={`${gif.id}-${index}`} gif={gif} />
       ))}
       <div ref={intersectionRef} className="flex justify-center w-full p-8">
-        {!endOfGifs && isIntersecting && <SpinnerIcon />}
+        {!endOfGifs && isIntersecting && <IconSpinner />}
       </div>
     </>
   );
