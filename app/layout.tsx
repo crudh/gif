@@ -1,10 +1,11 @@
+import { Metadata } from "next";
 import { Search } from "../src/components/Search";
 import "./globals.css";
 
-export const metadata = {
-  title: "gifs.run - The fastest way to share gifs",
+export const metadata: Metadata = {
+  title: "gifs.run - the fastest way to share gifs",
   description:
-    "Quickly get the perfect gif for your message adapted for social media size restrictions",
+    "quickly get the perfect gif for your message",
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
