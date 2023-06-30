@@ -6,7 +6,7 @@ import { defaultGifLimit } from "../src/constants";
 // 24 hours
 export const revalidate = 86400;
 
-const Page = async () => {
+const IndexPage = async () => {
   const gifsResult = await trendingGifs({ offset: 0, limit: defaultGifLimit });
 
   return (
@@ -18,4 +18,4 @@ const Page = async () => {
   );
 };
 
-export default Page;
+export default IndexPage;
