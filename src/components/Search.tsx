@@ -8,7 +8,10 @@ export const Search = () => {
   const searchRef = useRef<HTMLInputElement>(null);
 
   const params = useParams();
-  const searchTerm = decodeURIComponent(params.searchTerm ?? "");
+  const searchTermParam = Array.isArray(params.searchTerm)
+    ? params.searchTerm[0]
+    : params.searchTerm;
+  const searchTerm = decodeURIComponent(searchTermParam ?? "");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
