@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { Search } from "../src/components/Search";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "gifs.run - the fastest way to share gifs",
-  description:
-    "quickly get the perfect gif for your message",
+  description: "quickly get the perfect gif for your message",
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -34,6 +34,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             height="22"
           />
         </div>
+        <Analytics />
       </body>
     </html>
   );
