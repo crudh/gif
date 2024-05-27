@@ -1,4 +1,10 @@
 {
-  "extends": "next/core-web-vitals",
-  "rules": {}
+  "extends": ["next/core-web-vitals"],
+  "plugins": [
+    "react-compiler"
+  ],
+  "rules": {
+    "react-compiler/react-compiler": "error",
+    "react-hooks/exhaustive-deps": 0
+  }
 }
