@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect } from "react";
 import { Gif } from "../../types/Gif";
 import { defaultGifLimit } from "../constants";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
