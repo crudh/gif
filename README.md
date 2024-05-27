@@ -2,7 +2,7 @@
 
 UI for seaching gifs using Giphy. Loads small previews initially and allows for click for full preview and to access a clipboard button to copy the gif url to the clipboard.
 
-The app is built using React, Next and Tailwind. It uses features like the app directory, server components and server actions.
+The app is built using React, Next and Tailwind. It uses features like the app directory, server components, server actions and React compiler.
 
 ## Run it locally
 
