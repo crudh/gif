@@ -1,39 +1,38 @@
 "use client";
 
 import { useRouter, useParams } from "next/navigation";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useActionState, useRef } from "react";
 import { IconSpinner } from "../icons/IconSpinner";
 
 export const Search = () => {
   const router = useRouter();
   const params = useParams();
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  const [, handleSubmit, isPending] = useActionState(
+    async (_previousState: undefined , event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      const searchInput = (searchRef.current?.value ?? "").trim();
+
+      requestAnimationFrame(() =>
+        router.push(`/search/${searchInput}`)
+      );
+
+      return undefined;
+    }, undefined);
 
   const searchTermParam = Array.isArray(params.searchTerm)
     ? params.searchTerm[0]
     : params.searchTerm;
   const activeSearch = decodeURIComponent(searchTermParam ?? "");
 
-  const searchRef = useRef<HTMLInputElement>(null);
-  const [lastSearch, setLastSearch] = useState(activeSearch);
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const searchInput = (searchRef.current?.value ?? "").trim();
-    setLastSearch(searchInput);
-
-    requestAnimationFrame(() => {
-      router.push(`/search/${searchInput}`);
-    });
-  };
-
-  const isLoading = activeSearch !== lastSearch;
-
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex mt-2 rounded-md shadow-sm">
         <div className="relative flex items-stretch flex-grow focus-within:z-10">
           <input
+            key={activeSearch}
             type="text"
             name="search"
             className="block w-full p-4 bg-black border-0 rounded-none shadow-sm rounded-l-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg "
@@ -42,7 +41,7 @@ export const Search = () => {
             ref={searchRef}
             autoFocus
           />
-          {isLoading && (
+          {isPending && (
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <IconSpinner />
             </div>
