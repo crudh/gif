@@ -12,13 +12,13 @@ export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
   const [intersectionRef, isIntersecting] =
     useIntersectionObserver<HTMLDivElement>();
 
-  const [gifs, handleLoadMore, isPending] = useActionState<Gif[]>(async (state) => {
+  const [gifs, handleLoadMore, isPending] = useActionState<Gif[]>(async (previousState) => {
     const newGifs = await handleSearchGifs(
       searchTerm,
-      state.length + defaultGifLimit
+      previousState.length + defaultGifLimit
     );
 
-    return [...state, ...newGifs];
+    return [...previousState, ...newGifs];
   }, []);
 
   useEffect(() => {
