@@ -21,16 +21,16 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
       className={`flex p-1 relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
       onClick={handleClick}
     >
-      {!isPreview && <Clipboard text={gif.url} />}
+      {!isPreview && <Clipboard text={gif.shareUrl} />}
       <img
         src={src}
         alt={gif.altText ?? ""}
         className="w-full rounded-lg"
-        width={gif.width}
-        height={gif.height}
+        width={gif.previewWidth}
+        height={gif.previewHeight}
         style={{
-          width: gif.width,
-          height: gif.height,
+          width: gif.previewWidth,
+          height: gif.previewHeight,
         }}
       />
     </div>

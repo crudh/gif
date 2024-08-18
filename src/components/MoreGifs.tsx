@@ -1,29 +1,35 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
-import { Gif } from "../../types/Gif";
-import { defaultGifLimit } from "../constants";
+import { useActionState, useEffect, useState } from "react";
+import { Gif, GifsResult } from "../../types/Gif";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { handleSearchGifs } from "../actions";
 import { IconSpinner } from "../icons/IconSpinner";
 import { GifPreview } from "./GifPreview";
 
-export const MoreGifs = ({ searchTerm }: { searchTerm: string }) => {
+export const MoreGifs = ({
+  searchTerm,
+  initialResult,
+}: {
+  searchTerm: string;
+  initialResult: GifsResult;
+}) => {
+  const [next, setNext] = useState<string | undefined>(initialResult.next);
   const [intersectionRef, isIntersecting] =
     useIntersectionObserver<HTMLDivElement>();
 
-  const [gifs, handleLoadMore, isPending] = useActionState<Gif[]>(async (previousState) => {
-    const newGifs = await handleSearchGifs(
-      searchTerm,
-      previousState.length + defaultGifLimit
-    );
+  const [gifs, handleLoadMore, isPending] = useActionState<Gif[]>(
+    async (previousState) => {
+      const newGifsResult = await handleSearchGifs(searchTerm, next);
+      setNext(newGifsResult.next);
 
-    return [...previousState, ...newGifs];
-  }, []);
+      return [...previousState, ...newGifsResult.gifs];
+    },
+    []
+  );
 
   useEffect(() => {
-    const isAtEnd = gifs.length % defaultGifLimit !== 0;
-    if (!isIntersecting || isPending || isAtEnd) return;
+    if (!isIntersecting || isPending || !next) return;
 
     handleLoadMore();
   }, [isIntersecting]);

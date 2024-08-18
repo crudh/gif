@@ -1,11 +1,9 @@
 "use server";
 
-import { Gif } from "../../types/Gif";
-import { searchGifs } from "../api/giphy";
-import { defaultGifLimit } from "../constants";
+import { GifsResult } from "../../types/Gif";
+import { searchGifs } from "../api/tenor";
 
 export const handleSearchGifs = async (
   searchTerm: string,
-  offset: number
-): Promise<Gif[]> =>
-  (await searchGifs(searchTerm, { offset, limit: defaultGifLimit })).gifs;
+  next?: string
+): Promise<GifsResult> => searchGifs(searchTerm, { next });
