@@ -18,7 +18,7 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
   return (
     <div
       key={gif.id}
-      className={`flex p-1 relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
+      className={`flex p-1 h-fit justify-center relative rounded-lg hover:cursor-pointer transition-opacity w-[220px]  ${conditionalContainerStyles}`}
       onClick={handleClick}
     >
       {!isPreview && <Clipboard text={gif.shareUrl} />}
