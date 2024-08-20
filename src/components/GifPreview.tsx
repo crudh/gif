@@ -24,21 +24,11 @@ export const GifPreview = ({
   return (
     <div
       key={gif.id}
-      className={`flex p-1 h-fit justify-center relative rounded-lg hover:cursor-pointer transition-opacity w-[220px]  ${conditionalContainerStyles}`}
+      className={`flex p-1 h-fit justify-center relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
       onClick={handleClick}
     >
       {!isPreview && <Clipboard gif={gif} searchTerm={searchTerm} />}
-      <img
-        src={src}
-        alt={gif.altText ?? ""}
-        className="w-full rounded-lg"
-        width={gif.previewWidth}
-        height={gif.previewHeight}
-        style={{
-          width: gif.previewWidth,
-          height: gif.previewHeight,
-        }}
-      />
+      <img src={src} alt={gif.altText ?? ""} className="rounded-lg h-[200px]" />
     </div>
   );
 };
