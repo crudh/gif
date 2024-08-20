@@ -7,7 +7,7 @@ import {
   tenorClientKey,
 } from "../constants";
 
-type RequestType = "search" | "featured";
+type RequestType = "search" | "featured" | "registershare";
 
 type TenorGifFormat = {
   url: string;
@@ -69,9 +69,9 @@ const transformResponse = (response: TenorResponse): GifsResult => ({
 });
 
 export const searchGifs = cache(
-  async (terms: string, options?: SearchOptions): Promise<GifsResult> =>
+  async (searchTerm: string, options?: SearchOptions): Promise<GifsResult> =>
     sendRequest("search", {
-      q: terms,
+      q: searchTerm,
       ...(options?.next ? { pos: `${options.next}` } : {}),
     }).then(transformResponse)
 );
@@ -82,3 +82,6 @@ export const trendingGifs = cache(
       ...(options?.next ? { pos: `${options.next}` } : {}),
     }).then(transformResponse)
 );
+
+export const shareEvent = async (id: string, searchTerm: string) =>
+  sendRequest("registershare", { id, q: searchTerm });
