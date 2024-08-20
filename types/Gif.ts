@@ -1,5 +1,5 @@
 export type Gif = {
-  id: string | number;
+  id: string;
   altText: string | undefined;
   previewUrl: string;
   previewWidth: number;

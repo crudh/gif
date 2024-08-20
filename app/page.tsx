@@ -11,7 +11,11 @@ const IndexPage = async () => {
   return (
     <GifsGrid>
       {gifsResult.gifs.map((gif, index) => (
-        <GifPreview key={`${gif.id}-${index}`} gif={gif} />
+        <GifPreview
+          key={`${gif.id}-${index}`}
+          gif={gif}
+          searchTerm="featured"
+        />
       ))}
     </GifsGrid>
   );

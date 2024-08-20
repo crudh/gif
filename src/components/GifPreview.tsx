@@ -5,7 +5,13 @@ import { useState } from "react";
 import { Gif } from "../../types/Gif";
 import { Clipboard } from "./Clipboard";
 
-export const GifPreview = ({ gif }: { gif: Gif }) => {
+export const GifPreview = ({
+  gif,
+  searchTerm,
+}: {
+  gif: Gif;
+  searchTerm: string;
+}) => {
   const [src, setSrc] = useState(gif.previewUrl);
 
   const isPreview = src === gif.previewUrl;
@@ -21,7 +27,7 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
       className={`flex p-1 h-fit justify-center relative rounded-lg hover:cursor-pointer transition-opacity w-[220px]  ${conditionalContainerStyles}`}
       onClick={handleClick}
     >
-      {!isPreview && <Clipboard text={gif.shareUrl} />}
+      {!isPreview && <Clipboard gif={gif} searchTerm={searchTerm} />}
       <img
         src={src}
         alt={gif.altText ?? ""}

@@ -37,7 +37,11 @@ export const MoreGifs = ({
   return (
     <>
       {gifs.map((gif, index) => (
-        <GifPreview key={`${gif.id}-${index}`} gif={gif} />
+        <GifPreview
+          key={`${gif.id}-${index}`}
+          gif={gif}
+          searchTerm={searchTerm}
+        />
       ))}
       <div ref={intersectionRef} className="flex justify-center w-full p-8">
         {isPending && <IconSpinner />}
