@@ -1,21 +1,18 @@
 export type Gif = {
-  id: string | number;
+  id: string;
   altText: string | undefined;
-  url: string;
-  width: number;
-  height: number;
   previewUrl: string;
+  previewWidth: number;
+  previewHeight: number;
   previewUrlFull: string;
+  shareUrl: string;
 };
 
 export type GifsResult = {
-  count: number;
-  totalCount: number;
-  offset: number;
   gifs: Gif[];
+  next?: string;
 };
 
 export type SearchOptions = {
-  limit?: number;
-  offset?: number;
+  next?: string;
 };

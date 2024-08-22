@@ -2,18 +2,28 @@
 
 import { useState } from "react";
 import { IconClipboard } from "../icons/IconClipboard";
+import { Gif } from "../../types/Gif";
+import { handleShared } from "../actions";
 
-export const Clipboard = ({ text }: { text: string }) => {
+export const Clipboard = ({
+  gif,
+  searchTerm,
+}: {
+  gif: Gif;
+  searchTerm: string;
+}) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard
-      .writeText(text)
+      .writeText(gif.shareUrl)
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 1000);
       })
-      .catch(() => console.error("Failed to copy"));
+      .catch((error) => console.error("Failed to copy", error))
+      .then(() => handleShared(gif.id, searchTerm))
+      .catch((error) => console.error("Failed to register share", error));
   };
 
   const conditionalClipboardStyles = copied ? "ring-yellow-400" : "ring-black";

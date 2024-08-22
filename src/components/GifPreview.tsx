@@ -5,7 +5,13 @@ import { useState } from "react";
 import { Gif } from "../../types/Gif";
 import { Clipboard } from "./Clipboard";
 
-export const GifPreview = ({ gif }: { gif: Gif }) => {
+export const GifPreview = ({
+  gif,
+  searchTerm,
+}: {
+  gif: Gif;
+  searchTerm: string;
+}) => {
   const [src, setSrc] = useState(gif.previewUrl);
 
   const isPreview = src === gif.previewUrl;
@@ -18,21 +24,11 @@ export const GifPreview = ({ gif }: { gif: Gif }) => {
   return (
     <div
       key={gif.id}
-      className={`flex p-1 relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
+      className={`flex p-1 h-fit justify-center relative rounded-lg hover:cursor-pointer transition-opacity ${conditionalContainerStyles}`}
       onClick={handleClick}
     >
-      {!isPreview && <Clipboard text={gif.url} />}
-      <img
-        src={src}
-        alt={gif.altText ?? ""}
-        className="w-full rounded-lg"
-        width={gif.width}
-        height={gif.height}
-        style={{
-          width: gif.width,
-          height: gif.height,
-        }}
-      />
+      {!isPreview && <Clipboard gif={gif} searchTerm={searchTerm} />}
+      <img src={src} alt={gif.altText ?? ""} className="rounded-lg h-[200px]" />
     </div>
   );
 };

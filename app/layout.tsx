@@ -29,10 +29,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <div>{children}</div>
         <div className="flex justify-center pt-8 pb-2">
           <Image
-            src="/giphy.png"
-            alt="Powered by Giphy"
-            width="200"
-            height="22"
+            src="/tenor.svg"
+            alt="Powered by Tenor"
+            width="198"
+            height="25"
           />
         </div>
         <Analytics />
