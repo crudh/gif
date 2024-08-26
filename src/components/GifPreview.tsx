@@ -28,7 +28,11 @@ export const GifPreview = ({
       onClick={handleClick}
     >
       {!isPreview && <Clipboard gif={gif} searchTerm={searchTerm} />}
-      <img src={src} alt={gif.altText ?? ""} className="rounded-lg h-[200px]" />
+      <img
+        src={src}
+        alt={gif.altText ?? ""}
+        className="rounded-lg h-[120px] md:h-[200px]"
+      />
     </div>
   );
 };
