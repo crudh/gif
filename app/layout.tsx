@@ -32,23 +32,16 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         />
       </head>
       <body className="p-4">
-        <div className="flex items-center justify-center p-4">
+        <div className="flex pb-4">
           <Image
-            src="/images/badger.png"
-            alt="Gif badger"
-            width="100"
-            height="100"
+            src="/images/icons/icon-512x512.png"
+            alt="gifs.run logo"
+            width="64"
+            height="64"
           />
-          <div className="flex flex-col pl-5">
-            <h1 className="text-4xl">gifs.run</h1>
-            <span className="pt-2 text-xs">
-              because you need a badger with a jetpack to help you find the best
-              gifs optimized for sharing in social media
-            </span>
+          <div className="flex-grow pl-4">
+            <Search />
           </div>
-        </div>
-        <div className="pb-4">
-          <Search />
         </div>
         <div>{children}</div>
         <div className="flex justify-center pt-8 pb-2">
