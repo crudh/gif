@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
 import { Gif, GifsResult } from "../../types/Gif";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { handleSearchGifs } from "../actions";
@@ -31,7 +31,7 @@ export const MoreGifs = ({
   useEffect(() => {
     if (!isIntersecting || isPending || !next) return;
 
-    handleLoadMore();
+    startTransition(handleLoadMore);
   }, [isIntersecting]);
 
   return (
