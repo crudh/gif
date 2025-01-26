@@ -41,7 +41,7 @@
     "@types/react-dom": "^19.0.3",
     "autoprefixer": "^10.4.17",
     "babel-plugin-react-compiler": "^19.0.0-beta-decd7b8-20250118",
-    "eslint": "^8.57.0",
+    "eslint": "^9.19.0",
     "eslint-config-next": "^15.1.6",
     "eslint-plugin-react-compiler": "^19.0.0-beta-decd7b8-20250118",
     "postcss": "^8.4.33",
