@@ -34,7 +34,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body className="p-4">
         <div className="flex pb-4">
           <Image
-            src="/images/icons/icon-512x512.png"
+            src="/images/icons/icon-72x72.png"
             alt="gifs.run logo"
             width="64"
             height="64"
