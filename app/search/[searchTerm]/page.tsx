@@ -9,9 +9,10 @@ export const revalidate = 86400;
 const SearchResultPage = async ({
   params,
 }: {
-  params: { searchTerm: string };
+  params: Promise<{ searchTerm: string }>;
 }) => {
-  const searchTerm = decodeURIComponent(params.searchTerm);
+  const { searchTerm: searchTermParam } = await params;
+  const searchTerm = decodeURIComponent(searchTermParam);
   const gifsResult = await searchGifs(searchTerm);
 
   return (

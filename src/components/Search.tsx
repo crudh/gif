@@ -9,18 +9,13 @@ export const Search = () => {
   const params = useParams();
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const [, handleSubmit, isPending] = useActionState(
-    async (_previousState: undefined , event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+  const [, formAction, isPending] = useActionState(async () => {
+    const searchInput = (searchRef.current?.value ?? "").trim();
 
-      const searchInput = (searchRef.current?.value ?? "").trim();
+    requestAnimationFrame(() => router.push(`/search/${searchInput}`));
 
-      requestAnimationFrame(() =>
-        router.push(`/search/${searchInput}`)
-      );
-
-      return undefined;
-    }, undefined);
+    return undefined;
+  }, undefined);
 
   const searchTermParam = Array.isArray(params.searchTerm)
     ? params.searchTerm[0]
@@ -28,7 +23,7 @@ export const Search = () => {
   const activeSearch = decodeURIComponent(searchTermParam ?? "");
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form action={formAction}>
       <div className="flex mt-2 rounded-md shadow-sm">
         <div className="relative flex items-stretch flex-grow focus-within:z-10">
           <input
