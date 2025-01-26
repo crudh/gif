@@ -24,13 +24,13 @@ export const Search = () => {
 
   return (
     <form action={formAction}>
-      <div className="flex mt-2 rounded-md shadow-sm">
-        <div className="relative flex items-stretch flex-grow focus-within:z-10">
+      <div className="flex mt-2 rounded-md shadow-xs">
+        <div className="relative flex items-stretch grow focus-within:z-10">
           <input
             key={activeSearch}
             type="text"
             name="search"
-            className="block w-full p-4 bg-black border-0 rounded-none shadow-sm rounded-l-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg "
+            className="block w-full p-4 bg-black border-0 rounded-none shadow-xs rounded-l-md ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg "
             placeholder="Search for a gif"
             defaultValue={activeSearch}
             ref={searchRef}
