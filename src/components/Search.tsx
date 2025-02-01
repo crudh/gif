@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useParams } from "next/navigation";
-import { FormEvent, useActionState, useRef } from "react";
+import { useActionState, useRef } from "react";
 import { IconSpinner } from "../icons/IconSpinner";
 
 export const Search = () => {
@@ -12,7 +12,7 @@ export const Search = () => {
   const [, formAction, isPending] = useActionState(async () => {
     const searchInput = (searchRef.current?.value ?? "").trim();
 
-    requestAnimationFrame(() => router.push(`/search/${searchInput}`));
+    router.push(`/search/${searchInput}`);
 
     return undefined;
   }, undefined);
