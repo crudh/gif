@@ -32,7 +32,9 @@ export const MoreGifs = ({
     if (!isIntersecting || isPending || !next) return;
 
     startTransition(onLoadMore);
-  }, [isIntersecting, onLoadMore, isPending, next]);
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isIntersecting]);
 
   return (
     <>
