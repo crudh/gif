@@ -18,20 +18,22 @@ export const MoreGifs = ({
   const [intersectionRef, isIntersecting] =
     useIntersectionObserver<HTMLDivElement>();
 
-  const [gifs, handleLoadMore, isPending] = useActionState<Gif[]>(
+  const [gifs, onLoadMore, isPending] = useActionState<Gif[]>(
     async (previousState) => {
       const newGifsResult = await handleSearchGifs(searchTerm, next);
       setNext(newGifsResult.next);
 
       return [...previousState, ...newGifsResult.gifs];
     },
-    []
+    [],
   );
 
   useEffect(() => {
     if (!isIntersecting || isPending || !next) return;
 
-    startTransition(handleLoadMore);
+    startTransition(onLoadMore);
+    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isIntersecting]);
 
   return (
