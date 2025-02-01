@@ -6,12 +6,12 @@ import { deployEnv } from "../constants";
 
 export const handleSearchGifs = async (
   searchTerm: string,
-  next?: string
+  next?: string,
 ): Promise<GifsResult> => searchGifs(searchTerm, { next });
 
 export const handleShared = async (
   id: string,
-  searchTerm: string
+  searchTerm: string,
 ): Promise<void> => {
   if (deployEnv !== "production") return;
 
