@@ -8,9 +8,8 @@ const compat = new FlatCompat({
 
 const config = [
   {
-    // plugins: ["eslint-plugin-react-compiler"],
     rules: {
-      // "react-compiler/react-compiler": "error",
+      "react-compiler/react-compiler": "error",
       "react-hooks/exhaustive-deps": 0,
     },
   },
