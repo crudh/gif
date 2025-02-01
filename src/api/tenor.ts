@@ -43,7 +43,7 @@ const baseParams = {
 
 const sendRequest = async (
   requestType: RequestType,
-  params: Record<string, string>
+  params: Record<string, string>,
 ) => {
   const urlParams = new URLSearchParams({ ...params, ...baseParams });
   const response = await fetch(`${tenorBaseUrl}${requestType}?${urlParams}`);
@@ -73,14 +73,14 @@ export const searchGifs = cache(
     sendRequest("search", {
       q: searchTerm,
       ...(options?.next ? { pos: `${options.next}` } : {}),
-    }).then(transformResponse)
+    }).then(transformResponse),
 );
 
 export const trendingGifs = cache(
   async (options?: SearchOptions): Promise<GifsResult> =>
     sendRequest("featured", {
       ...(options?.next ? { pos: `${options.next}` } : {}),
-    }).then(transformResponse)
+    }).then(transformResponse),
 );
 
 export const shareEvent = async (id: string, searchTerm: string) =>
