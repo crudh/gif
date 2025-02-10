@@ -1,6 +1,5 @@
 import { test as base } from "@playwright/test";
 import { createServer, Server } from "http";
-import { http } from "msw";
 import { SetupServerApi, setupServer } from "msw/node";
 import { AddressInfo } from "net";
 import next from "next";
@@ -9,12 +8,10 @@ import { parse } from "url";
 import { defaultHandlers } from "../api/defaultHandlers";
 
 export const it = base.extend<
-  {
-    http: typeof http;
-  },
+  object,
   {
     baseUrl: string;
-    _requestInterceptor: SetupServerApi;
+    requestInterceptor: SetupServerApi;
   }
 >({
   baseUrl: [
@@ -44,7 +41,7 @@ export const it = base.extend<
     },
     { scope: "worker", auto: true },
   ],
-  _requestInterceptor: [
+  requestInterceptor: [
     async ({}, use) => {
       await use(
         (() => {
@@ -58,7 +55,6 @@ export const it = base.extend<
         })(),
       );
     },
-    { scope: "worker" },
+    { scope: "worker", auto: true },
   ],
-  http,
 });

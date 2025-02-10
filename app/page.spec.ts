@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { it } from "../src/test/browser/fixtures";
 
-it("renders correctly", async ({ page, baseUrl, _requestInterceptor }) => {
+it("renders correctly", async ({ page, baseUrl }) => {
   await page.goto(baseUrl);
 
   // title
