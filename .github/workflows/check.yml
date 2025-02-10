@@ -19,4 +19,5 @@ jobs:
       - run: yarn format:check
       - run: yarn types:check
       - run: yarn lint
+      - run: yarn test:browser:install
       - run: yarn test:browser

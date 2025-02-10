@@ -29,7 +29,8 @@
     "types:check": "tsc --noEmit",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "test:browser:install": "playwright install"
   },
   "dependencies": {
     "@vercel/analytics": "^1.1.3",
