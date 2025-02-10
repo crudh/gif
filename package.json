@@ -24,6 +24,7 @@
   "scripts": {
     "dev": "next dev --turbo --experimental-https",
     "build": "next build",
+    "build:dynamic": "next build --experimental-build-mode compile",
     "start": "next start",
     "lint": "next lint",
     "types:check": "tsc --noEmit",
