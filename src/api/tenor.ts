@@ -6,33 +6,7 @@ import {
   tenorBaseUrl,
   tenorClientKey,
 } from "../constants";
-
-type RequestType = "search" | "featured" | "registershare";
-
-type TenorGifFormat = {
-  url: string;
-  dims: [number, number];
-};
-
-type TenorGif = {
-  id: string;
-  title: string;
-  content_description: string;
-  itemurl: string;
-  url: string;
-  tags: string[];
-  media_formats: {
-    tinygif: TenorGifFormat;
-    nanogif: TenorGifFormat;
-    mediumgif: TenorGifFormat;
-  };
-};
-
-type TenorResponse = {
-  locale: string;
-  next?: string | number;
-  results: TenorGif[];
-};
+import { TenorGif, TenorRequestType, TenorResponse } from "../../types/Tenor";
 
 const baseParams = {
   key: tenorApiKey,
@@ -42,7 +16,7 @@ const baseParams = {
 } as const;
 
 const sendRequest = async (
-  requestType: RequestType,
+  requestType: TenorRequestType,
   params: Record<string, string>,
 ) => {
   const urlParams = new URLSearchParams({ ...params, ...baseParams });

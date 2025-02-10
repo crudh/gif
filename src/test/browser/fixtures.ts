@@ -1,0 +1,61 @@
+import { test as base } from "@playwright/test";
+import { createServer, Server } from "http";
+import { http } from "msw";
+import { SetupServerApi, setupServer } from "msw/node";
+import { AddressInfo } from "net";
+import next from "next";
+import path from "path";
+import { parse } from "url";
+import { defaultHandlers } from "../api/defaultHandlers";
+
+export const it = base.extend<
+  {
+    http: typeof http;
+  },
+  {
+    baseUrl: string;
+    _requestInterceptor: SetupServerApi;
+  }
+>({
+  baseUrl: [
+    async ({}, use) => {
+      const app = next({ dev: true, dir: path.resolve(__dirname, "../../..") });
+      await app.prepare();
+
+      const handle = app.getRequestHandler();
+
+      const server: Server = await new Promise((resolve) => {
+        const server = createServer((req, res) => {
+          const parsedUrl = parse(req.url!, true);
+          handle(req, res, parsedUrl);
+        });
+
+        server.listen((error: unknown) => {
+          if (error) throw error;
+          resolve(server);
+        });
+      });
+
+      const port = (server.address() as AddressInfo).port.toString();
+      await use(`http://localhost:${port}`);
+    },
+    { scope: "worker", auto: true },
+  ],
+  _requestInterceptor: [
+    async ({}, use) => {
+      await use(
+        (() => {
+          const requestInterceptor = setupServer(...defaultHandlers);
+
+          requestInterceptor.listen({
+            onUnhandledRequest: "error",
+          });
+
+          return requestInterceptor;
+        })(),
+      );
+    },
+    { scope: "worker" },
+  ],
+  http,
+});

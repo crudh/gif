@@ -15,7 +15,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "22"
-      - run: yarn
-      - run: yarn check-format
-      - run: yarn check-types
+      - run: yarn install --frozen-lockfile
+      - run: yarn format:check
+      - run: yarn types:check
       - run: yarn lint
+      - run: yarn test:browser
