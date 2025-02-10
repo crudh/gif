@@ -30,7 +30,7 @@
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "test:browser": "playwright test",
-    "test:browser:install": "playwright install"
+    "test:browser:install": "playwright install --with-deps"
   },
   "dependencies": {
     "@vercel/analytics": "^1.1.3",
