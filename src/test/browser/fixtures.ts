@@ -19,7 +19,10 @@ export const it = base.extend<
 >({
   baseUrl: [
     async ({}, use) => {
-      const app = next({ dev: true, dir: path.resolve(__dirname, "../../..") });
+      const app = next({
+        dev: false,
+        dir: path.resolve(__dirname, "../../.."),
+      });
       await app.prepare();
 
       const handle = app.getRequestHandler();
