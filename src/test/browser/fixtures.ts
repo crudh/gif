@@ -15,6 +15,7 @@ export const it = base.extend<
   }
 >({
   baseUrl: [
+    // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
       const app = next({
         dev: false,
@@ -42,6 +43,7 @@ export const it = base.extend<
     { scope: "worker", auto: true },
   ],
   requestInterceptor: [
+    // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
       await use(
         (() => {
