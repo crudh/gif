@@ -1,5 +1,6 @@
 import eslintConfigPrettier from "eslint-config-prettier";
 import { FlatCompat } from "@eslint/eslintrc";
+import eslint from "@eslint/js";
 import reactCompiler from "eslint-plugin-react-compiler";
 
 const compat = new FlatCompat({
@@ -7,10 +8,15 @@ const compat = new FlatCompat({
 });
 
 const config = [
+  eslint.configs.recommended,
+  ...compat.config({
+    extends: ["next/core-web-vitals", "next/typescript"],
+  }),
+  reactCompiler.configs.recommended,
+  eslintConfigPrettier,
   {
     rules: {
       "react-compiler/react-compiler": "error",
-      "react-hooks/exhaustive-deps": 0,
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -19,11 +25,6 @@ const config = [
       ],
     },
   },
-  ...compat.config({
-    extends: ["next/core-web-vitals", "next/typescript"],
-  }),
-  reactCompiler.configs.recommended,
-  eslintConfigPrettier,
 ];
 
 export default config;
