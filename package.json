@@ -27,6 +27,7 @@
     "build:dynamic": "next build --experimental-build-mode compile",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "types:check": "tsc --noEmit",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",

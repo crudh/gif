@@ -1,7 +1,7 @@
 "use client";
 
 import { startTransition, useActionState, useEffect, useState } from "react";
-import { Gif, GifsResult } from "../../types/Gif";
+import type { Gif, GifsResult } from "../types/Gif";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import { handleSearchGifs } from "../actions";
 import { IconSpinner } from "../icons/IconSpinner";

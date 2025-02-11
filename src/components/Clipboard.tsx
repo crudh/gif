@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { IconClipboard } from "../icons/IconClipboard";
-import { Gif } from "../../types/Gif";
+import type { Gif } from "../types/Gif";
 import { handleShared } from "../actions";
 
 export const Clipboard = ({

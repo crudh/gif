@@ -1,7 +1,9 @@
 import { test as base } from "@playwright/test";
-import { createServer, Server } from "http";
-import { SetupServerApi, setupServer } from "msw/node";
-import { AddressInfo } from "net";
+import type { Server } from "http";
+import { createServer } from "http";
+import type { SetupServerApi } from "msw/node";
+import { setupServer } from "msw/node";
+import type { AddressInfo } from "net";
 import next from "next";
 import path from "path";
 import { parse } from "url";
@@ -15,6 +17,7 @@ export const it = base.extend<
   }
 >({
   baseUrl: [
+    // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
       const app = next({
         dev: false,
@@ -42,6 +45,7 @@ export const it = base.extend<
     { scope: "worker", auto: true },
   ],
   requestInterceptor: [
+    // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
       await use(
         (() => {
