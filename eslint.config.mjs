@@ -23,6 +23,7 @@ const config = [
           argsIgnorePattern: "^_",
         },
       ],
+      "@typescript-eslint/consistent-type-imports": "error",
     },
   },
 ];
