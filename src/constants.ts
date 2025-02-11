@@ -1,4 +1,4 @@
-import { isEnvironment, Environment } from "../types/Environment";
+import { isEnvironment, Environment } from "./types/Environment";
 
 export const gifLimit = 50;
 export const tenorApiKey = process.env.TENOR_API_KEY ?? "";

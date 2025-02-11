@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { TenorResponse } from "../../../../types/Tenor";
+import { TenorResponse } from "../../../types/Tenor";
 import { tenorBaseUrl } from "../../../constants";
 import { mockedFeaturedResponse } from "./mocks/featuredResponse";
 import { mockedSearchResponse } from "./mocks/searchResponse";

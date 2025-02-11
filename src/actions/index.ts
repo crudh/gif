@@ -1,6 +1,6 @@
 "use server";
 
-import { GifsResult } from "../../types/Gif";
+import { GifsResult } from "../types/Gif";
 import { searchGifs, shareEvent } from "../api/tenor";
 import { deployEnv } from "../constants";
 

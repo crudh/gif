@@ -1,4 +1,4 @@
-import { TenorResponse } from "../../../../../types/Tenor";
+import { TenorResponse } from "../../../../types/Tenor";
 
 export const mockedFeaturedResponse = {
   locale: "en",
