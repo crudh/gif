@@ -1,7 +1,9 @@
 import { test as base } from "@playwright/test";
-import { createServer, Server } from "http";
-import { SetupServerApi, setupServer } from "msw/node";
-import { AddressInfo } from "net";
+import type { Server } from "http";
+import { createServer } from "http";
+import type { SetupServerApi} from "msw/node";
+import { setupServer } from "msw/node";
+import type { AddressInfo } from "net";
 import next from "next";
 import path from "path";
 import { parse } from "url";
