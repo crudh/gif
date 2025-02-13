@@ -26,6 +26,7 @@
     "build": "next build",
     "build:dynamic": "next build --experimental-build-mode compile",
     "start": "next start",
+    "check": "pnpm types:check && pnpm lint && pnpm format:check",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "types:check": "tsc --noEmit",
@@ -42,21 +43,22 @@
     "sharp": "^0.33.2"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.20.0",
     "@playwright/test": "^1.50.1",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.10.10",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
-    "babel-plugin-react-compiler": "^19.0.0-beta-decd7b8-20250118",
+    "babel-plugin-react-compiler": "^19.0.0-beta-30d8a17-20250209",
     "eslint": "^9.19.0",
     "eslint-config-next": "^15.1.6",
     "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-react-compiler": "^19.0.0-beta-decd7b8-20250118",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-30d8a17-20250209",
     "msw": "^2.7.0",
     "postcss": "^8.4.33",
     "prettier": "^3.4.2",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.3.3"
-  },
-  "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
+  }
 }

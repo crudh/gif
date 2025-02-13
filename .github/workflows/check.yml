@@ -11,14 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: yarn install --frozen-lockfile
-      - run: yarn format:check
-      - run: yarn types:check
-      - run: yarn lint
-      - run: yarn build:dynamic
-      - run: yarn test:browser:install
-      - run: yarn test:browser
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm format:check
+      - run: pnpm types:check
+      - run: pnpm lint
+      - run: pnpm build:dynamic
+      - run: pnpm test:browser:install
+      - run: pnpm test:browser
