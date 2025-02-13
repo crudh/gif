@@ -12,9 +12,11 @@ const config = [
   ...compat.config({
     extends: ["next/core-web-vitals", "next/typescript"],
   }),
-  reactCompiler.configs.recommended,
   eslintConfigPrettier,
   {
+    plugins: {
+      "react-compiler": reactCompiler,
+    },
     rules: {
       "react-compiler/react-compiler": "error",
       "@typescript-eslint/no-unused-vars": [
