@@ -18,9 +18,13 @@ const baseParams = {
 const sendRequest = async (
   requestType: TenorRequestType,
   params: Record<string, string>,
+  options?: RequestInit,
 ) => {
   const urlParams = new URLSearchParams({ ...params, ...baseParams });
-  const response = await fetch(`${tenorBaseUrl}${requestType}?${urlParams}`);
+  const response = await fetch(
+    `${tenorBaseUrl}${requestType}?${urlParams}`,
+    options,
+  );
   if (!response.ok)
     throw new Error(`Failed to fetch ${requestType}: ${response.statusText}`);
 
@@ -44,17 +48,29 @@ const transformResponse = (response: TenorResponse): GifsResult => ({
 
 export const searchGifs = cache(
   async (searchTerm: string, options?: SearchOptions): Promise<GifsResult> =>
-    sendRequest("search", {
-      q: searchTerm,
-      ...(options?.next ? { pos: `${options.next}` } : {}),
-    }).then(transformResponse),
+    sendRequest(
+      "search",
+      {
+        q: searchTerm,
+        ...(options?.next ? { pos: `${options.next}` } : {}),
+      },
+      {
+        cache: "force-cache",
+      },
+    ).then(transformResponse),
 );
 
 export const trendingGifs = cache(
   async (options?: SearchOptions): Promise<GifsResult> =>
-    sendRequest("featured", {
-      ...(options?.next ? { pos: `${options.next}` } : {}),
-    }).then(transformResponse),
+    sendRequest(
+      "featured",
+      {
+        ...(options?.next ? { pos: `${options.next}` } : {}),
+      },
+      {
+        cache: "force-cache",
+      },
+    ).then(transformResponse),
 );
 
 export const shareEvent = async (id: string, searchTerm: string) =>

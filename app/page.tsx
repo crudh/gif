@@ -4,6 +4,7 @@ import { GifsGrid } from "../src/components/GifsGrid";
 
 // 24 hours
 export const revalidate = 86400;
+export const dynamic = "force-static";
 
 const IndexPage = async () => {
   const gifsResult = await trendingGifs();
