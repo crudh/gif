@@ -1,9 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type KeyboardEvent } from "react";
 import { IconClipboard } from "../icons/IconClipboard";
 import type { Gif } from "../types/Gif";
 import { handleShared } from "../actions";
+
+const onKeyboardSelect = (
+  event: KeyboardEvent<HTMLDivElement>,
+  onHandle: () => void,
+) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    onHandle();
+  }
+};
 
 export const Clipboard = ({
   gif,
@@ -26,15 +36,21 @@ export const Clipboard = ({
       .catch((error) => console.error("Failed to register share", error));
   };
 
-  const conditionalClipboardStyles = copied ? "ring-yellow-400" : "ring-black";
+  const conditionalClipboardStyles = copied
+    ? "transition ease-in duration-500 ring-yellow-400"
+    : "ring-black";
 
   return (
-    <button title="Copy link" onClick={handleCopy}>
-      <div
-        className={`absolute w-8 h-8 p-1 transition ease-in-out duration-500 bg-black rounded-lg bottom-2 right-2 ring-2 ring-inset ${conditionalClipboardStyles}`}
-      >
-        <IconClipboard />
-      </div>
-    </button>
+    <div
+      tabIndex={0}
+      aria-label="Copy gif share link to clipboard"
+      role="button"
+      className={`absolute w-8 h-8 p-1 bg-black rounded-lg bottom-2 right-2 ring-2 ring-inset hover:cursor-pointer ${conditionalClipboardStyles}`}
+      onClick={handleCopy}
+      onKeyDown={(event) => onKeyboardSelect(event, handleCopy)}
+    >
+      <IconClipboard />
+    </div>
+    // </div>
   );
 };

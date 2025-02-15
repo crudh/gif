@@ -33,7 +33,7 @@ const sendRequest = async (
 
 const transformGif = (gif: TenorGif): Gif => ({
   id: gif.id,
-  altText: gif.content_description,
+  altText: gif.content_description ?? "unknown",
   previewUrl: gif.media_formats.tinygif.url,
   previewWidth: gif.media_formats.tinygif.dims[0],
   previewHeight: gif.media_formats.tinygif.dims[1],
