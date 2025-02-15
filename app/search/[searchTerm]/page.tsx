@@ -5,6 +5,7 @@ import { MoreGifs } from "../../../src/components/MoreGifs";
 
 // 24 hours
 export const revalidate = 86400;
+export const dynamic = "force-static";
 
 const SearchResultPage = async ({
   params,
