@@ -29,7 +29,11 @@ test("initial render", async ({ page, baseUrl }) => {
   await expect(footer).toBeVisible();
 });
 
-test("selecting a gif and copying the url", async ({ page, baseUrl }) => {
+test("selecting a gif and copying the url", async ({
+  page,
+  baseUrl,
+  browserName,
+}) => {
   await page.goto(baseUrl);
 
   const gifs = page.getByRole("button", {
@@ -45,12 +49,15 @@ test("selecting a gif and copying the url", async ({ page, baseUrl }) => {
 
   await clipboard.click();
 
-  const clipboardText = await page.evaluate(() =>
-    navigator.clipboard.readText(),
-  );
-  expect(clipboardText).toContain(
-    mockedFeaturedResponse.results[0].media_formats.mediumgif.url,
-  );
+  // https://github.com/microsoft/playwright/issues/34307
+  if (!(browserName === "webkit" && process.env.CI)) {
+    const clipboardText = await page.evaluate(() =>
+      navigator.clipboard.readText(),
+    );
+    expect(clipboardText).toContain(
+      mockedFeaturedResponse.results[0].media_formats.mediumgif.url,
+    );
+  }
 });
 
 test("searching for gifs", async ({ page, baseUrl }) => {
@@ -65,9 +72,9 @@ test("searching for gifs", async ({ page, baseUrl }) => {
   await expect(page).toHaveURL(`${baseUrl}/search/cats`);
 });
 
-test("keyboard navigation of gifs", async ({ page, baseUrl }) => {
+test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
   await page.goto(baseUrl);
-  const tabKey = getTabKey(test);
+  const tabKey = getTabKey(browserName);
 
   const searchInput = page.getByRole("textbox", { name: "search" });
   await expect(searchInput).toBeFocused();
@@ -107,17 +114,24 @@ test("keyboard navigation of gifs", async ({ page, baseUrl }) => {
 
   await page.keyboard.press("Enter");
 
-  const clipboardText = await page.evaluate(() =>
-    navigator.clipboard.readText(),
-  );
-  expect(clipboardText).toContain(
-    mockedFeaturedResponse.results[1].media_formats.mediumgif.url,
-  );
+  // https://github.com/microsoft/playwright/issues/34307
+  if (!(browserName === "webkit" && process.env.CI)) {
+    const clipboardText = await page.evaluate(() =>
+      navigator.clipboard.readText(),
+    );
+    expect(clipboardText).toContain(
+      mockedFeaturedResponse.results[1].media_formats.mediumgif.url,
+    );
+  }
 });
 
-test("keyboard navigation of searching for gifs", async ({ page, baseUrl }) => {
+test("keyboard navigation of searching for gifs", async ({
+  page,
+  baseUrl,
+  browserName,
+}) => {
   await page.goto(baseUrl);
-  const tabKey = getTabKey(test);
+  const tabKey = getTabKey(browserName);
 
   const searchInput = page.getByRole("textbox", { name: "search" });
   await expect(searchInput).toBeFocused();
