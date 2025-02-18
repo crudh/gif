@@ -1,6 +1,5 @@
 import { test as base } from "@playwright/test";
-import type { Server } from "http";
-import { createServer } from "http";
+import { type Server, createServer } from "http";
 import type { SetupServerApi } from "msw/node";
 import { setupServer } from "msw/node";
 import type { AddressInfo } from "net";
@@ -9,7 +8,7 @@ import path from "path";
 import { parse } from "url";
 import { defaultHandlers } from "../api/defaultHandlers";
 
-export const it = base.extend<
+export const test = base.extend<
   object,
   {
     baseUrl: string;
