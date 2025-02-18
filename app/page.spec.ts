@@ -45,7 +45,9 @@ test("selecting a gif and copying the url", async ({ page, baseUrl }) => {
 
   await clipboard.click();
 
-  const clipboardText = await page.evaluate("navigator.clipboard.readText()");
+  const clipboardText = await page.evaluate(() =>
+    navigator.clipboard.readText(),
+  );
   expect(clipboardText).toContain(
     mockedFeaturedResponse.results[0].media_formats.mediumgif.url,
   );
@@ -105,7 +107,9 @@ test("keyboard navigation of gifs", async ({ page, baseUrl }) => {
 
   await page.keyboard.press("Enter");
 
-  const clipboardText = await page.evaluate("navigator.clipboard.readText()");
+  const clipboardText = await page.evaluate(() =>
+    navigator.clipboard.readText(),
+  );
   expect(clipboardText).toContain(
     mockedFeaturedResponse.results[1].media_formats.mediumgif.url,
   );
@@ -116,7 +120,7 @@ test("keyboard navigation of searching for gifs", async ({ page, baseUrl }) => {
   const tabKey = getTabKey(test);
 
   const searchInput = page.getByRole("textbox", { name: "search" });
-  expect(searchInput).toBeFocused();
+  await expect(searchInput).toBeFocused();
 
   await page.keyboard.insertText("cats");
   await page.keyboard.press(tabKey);
