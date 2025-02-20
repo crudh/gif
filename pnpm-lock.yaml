@@ -30,6 +30,9 @@ importers:
       '@eslint/js':
         specifier: ^9.20.0
         version: 9.20.0
+      '@next/eslint-plugin-next':
+        specifier: ^15.1.7
+        version: 15.1.7
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.50.1
@@ -60,6 +63,9 @@ importers:
       eslint-plugin-react-compiler:
         specifier: 19.0.0-beta-e552027-20250112
         version: 19.0.0-beta-e552027-20250112(eslint@9.20.1(jiti@2.4.2))
+      eslint-plugin-react-hooks:
+        specifier: ^5.1.0
+        version: 5.1.0(eslint@9.20.1(jiti@2.4.2))
       msw:
         specifier: ^2.7.1
         version: 2.7.1(@types/node@22.13.4)(typescript@5.7.3)
