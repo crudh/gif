@@ -2,31 +2,17 @@ import { expect } from "@playwright/test";
 import { test } from "../src/test/browser/fixtures";
 import { getTabKey } from "../src/test/browser/utils";
 import { mockedFeaturedResponse } from "../src/test/api/tenor/mocks/featuredResponse";
+import { testLayout } from "../src/test/browser/shared";
 
 test("initial render", async ({ page, baseUrl }) => {
   await page.goto(baseUrl);
 
-  await expect(page).toHaveTitle("gifs.run - the fastest way to share gifs");
-
-  const logo = page.getByRole("img", { name: "gifs.run logo" });
-  await expect(logo).toBeVisible();
-
-  const searchInput = page.getByRole("textbox", { name: "search" });
-  await expect(searchInput).toBeVisible();
-  await expect(searchInput).toBeEmpty();
-  await expect(searchInput).toBeFocused();
-  await expect(searchInput).toHaveAttribute("placeholder", "Search for a gif");
-
-  const searchButton = page.getByRole("button", { name: "Search" });
-  await expect(searchButton).toBeVisible();
+  await testLayout(page);
 
   const gifs = page.getByRole("button", {
     name: /Load full preview of gif with description/,
   });
   await expect(gifs).toHaveCount(50);
-
-  const footer = page.getByRole("img", { name: "Powered by Tenor" });
-  await expect(footer).toBeVisible();
 });
 
 test("selecting a gif and copying the url", async ({
