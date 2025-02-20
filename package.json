@@ -63,7 +63,8 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "msw"
+      "msw",
+      "sharp"
     ]
   }
 }
