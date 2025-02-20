@@ -1,13 +1,12 @@
-import { expect } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 import { test } from "../src/test/browser/fixtures";
-import { tenorFeaturedHandler } from "../src/test/api/tenor";
+import {
+  tenorFeaturedHandler,
+  tenorSearchHandler,
+} from "../src/test/api/tenor";
 import { testLayout } from "../src/test/browser/shared";
 
-test("initial render", async ({ page, baseUrl, requestInterceptor }) => {
-  requestInterceptor.use(tenorFeaturedHandler(500));
-
-  await page.goto(baseUrl);
-
+const testPage = async (page: Page) => {
   await testLayout(page);
 
   const gifs = page.getByRole("button", {
@@ -22,4 +21,34 @@ test("initial render", async ({ page, baseUrl, requestInterceptor }) => {
 
   const errorImage = page.getByRole("img", { name: "an error occured" });
   await expect(errorImage).toBeVisible();
+};
+
+test("should trigger from the main page", async ({
+  page,
+  baseUrl,
+  requestInterceptor,
+}) => {
+  requestInterceptor.use(tenorFeaturedHandler(500));
+
+  await page.goto(baseUrl);
+
+  const searchInput = page.getByRole("textbox", { name: "search" });
+  await expect(searchInput).toBeEmpty();
+
+  await testPage(page);
+});
+
+test("should trigger from the search page", async ({
+  page,
+  baseUrl,
+  requestInterceptor,
+}) => {
+  requestInterceptor.use(tenorSearchHandler(500));
+
+  await page.goto(`${baseUrl}/search/dog`);
+
+  const searchInput = page.getByRole("textbox", { name: "search" });
+  await expect(searchInput).toHaveValue("dog");
+
+  await testPage(page);
 });

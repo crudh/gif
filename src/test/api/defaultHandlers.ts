@@ -1,11 +1,11 @@
 import {
   tenorFeaturedHandler,
   tenorRegisterShareHandler,
-  tenorSearchdHandler,
+  tenorSearchHandler,
 } from "./tenor";
 
 export const defaultHandlers = [
   tenorFeaturedHandler(),
-  tenorSearchdHandler(),
+  tenorSearchHandler(),
   tenorRegisterShareHandler(),
 ];

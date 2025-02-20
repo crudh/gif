@@ -8,7 +8,6 @@ export const testLayout = async (page: Page) => {
 
   const searchInput = page.getByRole("textbox", { name: "search" });
   await expect(searchInput).toBeVisible();
-  await expect(searchInput).toBeEmpty();
   await expect(searchInput).toBeFocused();
   await expect(searchInput).toHaveAttribute("placeholder", "Search for a gif");
 
