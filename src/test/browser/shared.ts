@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 
 export const testLayout = async (page: Page) => {
   await expect(page).toHaveTitle("gifs.run - the fastest way to share gifs");
