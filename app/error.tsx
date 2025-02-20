@@ -15,7 +15,7 @@ const Error = ({
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center pt-10">
       <div>
         <img
           src="https://media.tenor.com/U5RwBfkG6t8AAAAd/elmo-flames.gif"
