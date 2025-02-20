@@ -15,7 +15,7 @@ export const tenorFeaturedHandler = (
     return HttpResponse.json(response, { status });
   });
 
-export const tenorSearchdHandler = (
+export const tenorSearchHandler = (
   status: number = 200,
   response: TenorResponse = mockedSearchResponse,
 ) =>

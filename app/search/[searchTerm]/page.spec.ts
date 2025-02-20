@@ -1,21 +1,21 @@
 import { expect } from "@playwright/test";
-import { test } from "../src/test/browser/fixtures";
-import { getTabKey } from "../src/test/browser/utils";
-import { mockedFeaturedResponse } from "../src/test/api/tenor/mocks/featuredResponse";
-import { testLayout } from "../src/test/browser/shared";
+import { test } from "../../../src/test/browser/fixtures";
+import { getTabKey } from "../../../src/test/browser/utils";
+import { mockedSearchResponse } from "../../../src/test/api/tenor/mocks/searchResponse";
+import { testLayout } from "../../../src/test/browser/shared";
 
 test("initial render", async ({ page, baseUrl }) => {
-  await page.goto(baseUrl);
+  await page.goto(`${baseUrl}/search/dog`);
 
   await testLayout(page);
 
   const searchInput = page.getByRole("textbox", { name: "search" });
-  await expect(searchInput).toBeEmpty();
+  await expect(searchInput).toHaveValue("dog");
 
   const gifs = page.getByRole("button", {
     name: /Load full preview of gif with description/,
   });
-  await expect(gifs).toHaveCount(50);
+  await expect(gifs).toHaveCount(100);
 });
 
 test("selecting a gif and copying the url", async ({
@@ -23,7 +23,7 @@ test("selecting a gif and copying the url", async ({
   baseUrl,
   browserName,
 }) => {
-  await page.goto(baseUrl);
+  await page.goto(`${baseUrl}/search/dog`);
 
   const gifs = page.getByRole("button", {
     name: /Load full preview of gif with description/,
@@ -44,15 +44,16 @@ test("selecting a gif and copying the url", async ({
       navigator.clipboard.readText(),
     );
     expect(clipboardText).toContain(
-      mockedFeaturedResponse.results[0].media_formats.mediumgif.url,
+      mockedSearchResponse.results[0].media_formats.mediumgif.url,
     );
   }
 });
 
 test("searching for gifs", async ({ page, baseUrl }) => {
-  await page.goto(baseUrl);
+  await page.goto(`${baseUrl}/search/dog`);
 
   const searchInput = page.getByRole("textbox", { name: "search" });
+  await searchInput.clear();
   await searchInput.fill("cats");
 
   const searchButton = page.getByRole("button", { name: "Search" });
@@ -62,7 +63,7 @@ test("searching for gifs", async ({ page, baseUrl }) => {
 });
 
 test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
-  await page.goto(baseUrl);
+  await page.goto(`${baseUrl}/search/dog`);
   const tabKey = getTabKey(browserName);
 
   const searchInput = page.getByRole("textbox", { name: "search" });
@@ -109,7 +110,7 @@ test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
       navigator.clipboard.readText(),
     );
     expect(clipboardText).toContain(
-      mockedFeaturedResponse.results[1].media_formats.mediumgif.url,
+      mockedSearchResponse.results[1].media_formats.mediumgif.url,
     );
   }
 });
@@ -119,11 +120,12 @@ test("keyboard navigation of searching for gifs", async ({
   baseUrl,
   browserName,
 }) => {
-  await page.goto(baseUrl);
+  await page.goto(`${baseUrl}/search/dog`);
   const tabKey = getTabKey(browserName);
 
   const searchInput = page.getByRole("textbox", { name: "search" });
   await expect(searchInput).toBeFocused();
+  await searchInput.clear();
 
   await page.keyboard.insertText("cats");
   await page.keyboard.press(tabKey);
