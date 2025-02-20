@@ -24,12 +24,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           type="image/png"
           href="/images/icons/icon-192x192.png"
         />
-        <link
-          rel="preload"
-          href="/fonts/uU9NCBsR6Z2vfE9aq3bh3dSDqFGedA.woff2"
-          as="font"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className="p-4">
         <div className="flex pb-4">
