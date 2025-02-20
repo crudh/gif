@@ -3,6 +3,7 @@ import { test } from "../../../src/test/browser/fixtures";
 import { getTabKey } from "../../../src/test/browser/utils";
 import { mockedSearchResponse } from "../../../src/test/api/tenor/mocks/searchResponse";
 import { testLayout } from "../../../src/test/browser/shared";
+import { gifLimit } from "../../../src/constants";
 
 test("initial render", async ({ page, baseUrl }) => {
   await page.goto(`${baseUrl}/search/dog`);
@@ -15,7 +16,7 @@ test("initial render", async ({ page, baseUrl }) => {
   const gifs = page.getByRole("button", {
     name: /Load full preview of gif with description/,
   });
-  expect(await gifs.count()).toBeGreaterThanOrEqual(50);
+  await expect(gifs).toHaveCount(gifLimit);
 });
 
 test("selecting a gif and copying the url", async ({

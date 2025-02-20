@@ -18,13 +18,15 @@ const SearchResultPage = async ({
 
   return (
     <GifsGrid>
-      {gifsResult.gifs.map((gif, index) => (
-        <GifPreview
-          key={`${gif.id}-${index}`}
-          gif={gif}
-          searchTerm={searchTerm}
-        />
-      ))}
+      <GifsGrid>
+        {gifsResult.gifs.map((gif, index) => (
+          <GifPreview
+            key={`${gif.id}-${index}`}
+            gif={gif}
+            searchTerm={searchTerm}
+          />
+        ))}
+      </GifsGrid>
       {gifsResult.next && (
         <MoreGifs searchTerm={searchTerm} initialResult={gifsResult} />
       )}
