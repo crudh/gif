@@ -9,11 +9,8 @@ import { parse } from "url";
 import { defaultHandlers } from "../api/defaultHandlers";
 
 export const test = base.extend<
-  object,
-  {
-    baseUrl: string;
-    requestInterceptor: SetupServerApi;
-  }
+  { requestInterceptor: SetupServerApi },
+  { baseUrl: string }
 >({
   baseUrl: [
     // eslint-disable-next-line no-empty-pattern
@@ -46,9 +43,11 @@ export const test = base.extend<
   requestInterceptor: [
     // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
+      let requestInterceptor: SetupServerApi;
+
       await use(
         (() => {
-          const requestInterceptor = setupServer(...defaultHandlers);
+          requestInterceptor = setupServer(...defaultHandlers);
 
           requestInterceptor.listen({
             onUnhandledRequest: "error",
@@ -57,7 +56,9 @@ export const test = base.extend<
           return requestInterceptor;
         })(),
       );
+
+      requestInterceptor.close();
     },
-    { scope: "worker", auto: true },
+    { auto: true },
   ],
 });
