@@ -3,6 +3,7 @@ import { Search } from "../src/components/Search";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "gifs.run - the fastest way to share gifs",
@@ -27,12 +28,14 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       </head>
       <body className="p-4">
         <div className="flex pb-4">
-          <Image
-            src="/images/icons/icon-72x72.png"
-            alt="gifs.run logo"
-            width="64"
-            height="64"
-          />
+          <Link href="/" aria-label="Go to start page">
+            <Image
+              src="/images/icons/icon-72x72.png"
+              alt="gifs.run logo"
+              width="64"
+              height="64"
+            />
+          </Link>
           <div className="grow pl-4">
             <Search />
           </div>
