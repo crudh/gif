@@ -6,6 +6,10 @@ export const testLayout = async (page: Page) => {
   const logo = page.getByRole("img", { name: "gifs.run logo" });
   await expect(logo).toBeVisible();
 
+  const logoLink = page.getByRole("link", { name: "Go to start page" });
+  await expect(logoLink).toBeVisible();
+  await expect(logoLink).toHaveAttribute("href", "/");
+
   const searchInput = page.getByRole("textbox", { name: "search" });
   await expect(searchInput).toBeVisible();
   await expect(searchInput).toBeFocused();
