@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
-import { Search } from "../src/components/Search";
-import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Analytics } from "@vercel/analytics/react";
+import { Search } from "@/components/Search";
 
 export const metadata: Metadata = {
   title: "gifs.run - the fastest way to share gifs",

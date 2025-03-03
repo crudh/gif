@@ -1,6 +1,6 @@
-import { trendingGifs } from "../src/api/tenor";
-import { GifPreview } from "../src/components/GifPreview";
-import { GifsGrid } from "../src/components/GifsGrid";
+import { trendingGifs } from "@/api/tenor";
+import { GifsGrid } from "@/components/GifsGrid";
+import { GifPreview } from "@/components/GifPreview";
 
 // 24 hours
 export const revalidate = 86400;

@@ -2,8 +2,8 @@
 "use client";
 
 import { useState } from "react";
-import type { Gif } from "../types/Gif";
-import { Clipboard } from "./Clipboard";
+import { Clipboard } from "@/components/Clipboard";
+import type { Gif } from "@/types/Gif";
 
 export const GifPreview = ({
   gif,

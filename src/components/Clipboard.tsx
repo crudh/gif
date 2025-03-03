@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, type KeyboardEvent } from "react";
-import { IconClipboard } from "../icons/IconClipboard";
-import type { Gif } from "../types/Gif";
-import { handleShared } from "../actions";
+import { type KeyboardEvent, useState } from "react";
+import { handleShared } from "@/actions";
+import { IconClipboard } from "@/icons/IconClipboard";
+import type { Gif } from "@/types/Gif";
 
 const onKeyboardSelect = (
   event: KeyboardEvent<HTMLDivElement>,

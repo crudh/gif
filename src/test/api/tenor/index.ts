@@ -1,9 +1,9 @@
 import { HttpResponse, http } from "msw";
-import type { TenorResponse } from "../../../types/Tenor";
-import { tenorBaseUrl } from "../../../constants";
-import { mockedFeaturedResponse } from "./mocks/featuredResponse";
-import { mockedSearchResponse } from "./mocks/searchResponse";
-import { isOkStatus } from "../../../utils/net";
+import { tenorBaseUrl } from "@/constants";
+import { mockedFeaturedResponse } from "@/test/api/tenor/mocks/featuredResponse";
+import { mockedSearchResponse } from "@/test/api/tenor/mocks/searchResponse";
+import type { TenorResponse } from "@/types/Tenor";
+import { isOkStatus } from "@/utils/net";
 
 export const tenorFeaturedHandler = (
   status: number = 200,

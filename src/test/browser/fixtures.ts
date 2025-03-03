@@ -1,12 +1,11 @@
 import { test as base } from "@playwright/test";
 import { type Server, createServer } from "http";
-import type { SetupServerApi } from "msw/node";
-import { setupServer } from "msw/node";
+import { setupServer, type SetupServerApi } from "msw/node";
 import type { AddressInfo } from "net";
 import next from "next";
 import path from "path";
 import { parse } from "url";
-import { defaultHandlers } from "../api/defaultHandlers";
+import { defaultHandlers } from "@/test/api/defaultHandlers";
 
 export const test = base.extend<
   { requestInterceptor: SetupServerApi },
