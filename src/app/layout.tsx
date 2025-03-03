@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Search } from "../src/components/Search";
+import { Search } from "../components/Search";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import Image from "next/image";

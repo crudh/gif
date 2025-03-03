@@ -1,10 +1,7 @@
 import { expect, type Page } from "@playwright/test";
-import { test } from "../src/test/browser/fixtures";
-import {
-  tenorFeaturedHandler,
-  tenorSearchHandler,
-} from "../src/test/api/tenor";
-import { testLayout } from "../src/test/browser/shared";
+import { test } from "../test/browser/fixtures";
+import { tenorFeaturedHandler, tenorSearchHandler } from "../test/api/tenor";
+import { testLayout } from "../test/browser/shared";
 
 const testPage = async (page: Page) => {
   await testLayout(page);
