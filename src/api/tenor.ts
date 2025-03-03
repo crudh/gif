@@ -1,12 +1,12 @@
 import { cache } from "react";
-import type { Gif, GifsResult, SearchOptions } from "../types/Gif";
 import {
   gifLimit,
   tenorApiKey,
   tenorBaseUrl,
   tenorClientKey,
-} from "../constants";
-import type { TenorGif, TenorRequestType, TenorResponse } from "../types/Tenor";
+} from "@/constants";
+import type { Gif, GifsResult, SearchOptions } from "@/types/Gif";
+import type { TenorGif, TenorRequestType, TenorResponse } from "@/types/Tenor";
 
 const baseParams = {
   key: tenorApiKey,

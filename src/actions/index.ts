@@ -1,8 +1,8 @@
 "use server";
 
-import type { GifsResult } from "../types/Gif";
-import { searchGifs, shareEvent } from "../api/tenor";
-import { deployEnv } from "../constants";
+import { deployEnv } from "@/constants";
+import { searchGifs, shareEvent } from "@/api/tenor";
+import type { GifsResult } from "@/types/Gif";
 
 export const handleSearchGifs = async (
   searchTerm: string,

@@ -1,7 +1,7 @@
-import { searchGifs } from "../../../api/tenor";
-import { GifPreview } from "../../../components/GifPreview";
-import { GifsGrid } from "../../../components/GifsGrid";
-import { MoreGifs } from "../../../components/MoreGifs";
+import { searchGifs } from "@/api/tenor";
+import { GifPreview } from "@/components/GifPreview";
+import { GifsGrid } from "@/components/GifsGrid";
+import { MoreGifs } from "@/components/MoreGifs";
 
 // 24 hours
 export const revalidate = 86400;

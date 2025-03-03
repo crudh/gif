@@ -2,7 +2,7 @@ import {
   tenorFeaturedHandler,
   tenorRegisterShareHandler,
   tenorSearchHandler,
-} from "./tenor";
+} from "@/test/api/tenor";
 
 export const defaultHandlers = [
   tenorFeaturedHandler(),

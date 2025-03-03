@@ -1,9 +1,9 @@
 import { expect } from "@playwright/test";
-import { test } from "../test/browser/fixtures";
-import { getTabKey } from "../test/browser/utils";
-import { mockedFeaturedResponse } from "../test/api/tenor/mocks/featuredResponse";
-import { testLayout } from "../test/browser/shared";
-import { gifLimit } from "../constants";
+import { gifLimit } from "@/constants";
+import { mockedFeaturedResponse } from "@/test/api/tenor/mocks/featuredResponse";
+import { test } from "@/test/browser/fixtures";
+import { testLayout } from "@/test/browser/shared";
+import { getTabKey } from "@/test/browser/utils";
 
 test("initial render", async ({ page, baseUrl }) => {
   await page.goto(baseUrl);

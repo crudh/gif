@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useActionState, useRef } from "react";
-import { IconSpinner } from "../icons/IconSpinner";
+import { IconSpinner } from "@/icons/IconSpinner";
 
 export const Search = () => {
   const router = useRouter();

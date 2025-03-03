@@ -1,11 +1,11 @@
 "use client";
 
 import { startTransition, useActionState, useEffect, useState } from "react";
-import type { Gif, GifsResult } from "../types/Gif";
-import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-import { handleSearchGifs } from "../actions";
-import { IconSpinner } from "../icons/IconSpinner";
-import { GifPreview } from "./GifPreview";
+import { handleSearchGifs } from "@/actions";
+import type { Gif, GifsResult } from "@/types/Gif";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { IconSpinner } from "@/icons/IconSpinner";
+import { GifPreview } from "@/components/GifPreview";
 
 export const MoreGifs = ({
   searchTerm,

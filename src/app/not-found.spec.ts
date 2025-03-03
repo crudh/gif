@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
-import { test } from "../test/browser/fixtures";
-import { testLayout } from "../test/browser/shared";
+import { test } from "@/test/browser/fixtures";
+import { testLayout } from "@/test/browser/shared";
 
 test("page", async ({ page, baseUrl }) => {
   await page.goto(`${baseUrl}/dskfjsdkjfk`);
