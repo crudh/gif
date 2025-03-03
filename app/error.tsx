@@ -16,6 +16,7 @@ const Error = ({
 
   return (
     <div className="flex flex-col items-center pt-10">
+      <title>gifs.run - the fastest way to share gifs</title>
       <div>
         <img
           src="https://media.tenor.com/U5RwBfkG6t8AAAAd/elmo-flames.gif"
