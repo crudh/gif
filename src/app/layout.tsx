@@ -36,7 +36,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
               height="64"
             />
           </Link>
-          <div className="grow pl-4">
+          <div className="pl-4 flex items-center w-full">
             <Search />
           </div>
         </div>

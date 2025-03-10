@@ -18,7 +18,7 @@ export const GifPreview = ({
   const handleClick = () => setSrc(gif.previewUrlFull);
 
   const conditionalContainerStyles = isPreview
-    ? "opacity-60 hover:ring-2 hover:ring-inset hover:ring-indigo-600 hover:cursor-pointer"
+    ? "opacity-60 hover:cursor-pointer"
     : "ring-2 ring-inset ring-yellow-400";
 
   return (
