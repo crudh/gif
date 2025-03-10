@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
 import { Search } from "@/components/Search";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "gifs.run - the fastest way to share gifs",
@@ -49,6 +50,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             height="25"
           />
         </div>
+        <Toaster />
         <Analytics />
       </body>
     </html>
