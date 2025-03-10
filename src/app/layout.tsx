@@ -26,8 +26,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           href="/images/icons/icon-192x192.png"
         />
       </head>
-      <body className="p-4">
-        <div className="flex pb-4">
+      <body className="px-4">
+        <div className="flex sticky pr-1 pl-1 pb-1 pt-2 top-0 bg-black z-50">
           <Link href="/" aria-label="Go to start page">
             <Image
               src="/images/icons/icon-72x72.png"
@@ -40,7 +40,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             <Search />
           </div>
         </div>
-        <div>{children}</div>
+        <div className="pt-2">{children}</div>
         <div className="flex justify-center pt-8 pb-2">
           <Image
             src="/images/tenor.svg"
