@@ -4,6 +4,7 @@ import { type KeyboardEvent, useState } from "react";
 import { handleShared } from "@/actions";
 import { IconClipboard } from "@/icons/IconClipboard";
 import type { Gif } from "@/types/Gif";
+import { toast } from "sonner";
 
 const onKeyboardSelect = (
   event: KeyboardEvent<HTMLDivElement>,
@@ -30,6 +31,10 @@ export const Clipboard = ({
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 1000);
+        toast("Copied!", {
+          description: "The GIF link is now in the clipboard",
+          icon: <IconClipboard />,
+        });
       })
       .catch((error) => console.error("Failed to copy", error))
       .then(() => handleShared(gif.id, searchTerm))
