@@ -40,7 +40,7 @@ export const Search = () => {
       <div className="pb-1">
         <Button
           type="submit"
-          className="h-full"
+          className="h-14"
           variant="outline"
           loading={isPending}
         >
