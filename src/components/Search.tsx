@@ -4,11 +4,19 @@ import { useParams, useRouter } from "next/navigation";
 import { useActionState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
+import { useSearchShortcut } from "@/hooks/useSearchShortcut";
 
 export const Search = () => {
   const router = useRouter();
   const params = useParams();
   const searchRef = useRef<HTMLInputElement>(null);
+
+  const handleSearchShortcut = () => {
+    searchRef.current?.focus();
+    searchRef.current?.select();
+  };
+
+  useSearchShortcut(handleSearchShortcut);
 
   const [, formAction, isPending] = useActionState(async () => {
     const searchInput = (searchRef.current?.value ?? "").trim();
@@ -25,7 +33,7 @@ export const Search = () => {
 
   return (
     <form action={formAction} className="flex w-full h-full space-x-2">
-      <div className="w-full">
+      <div className="w-full relative">
         <Input
           key={activeSearch}
           type="text"
@@ -36,6 +44,9 @@ export const Search = () => {
           ref={searchRef}
           autoFocus
         />
+        <div className="absolute right-4 top-3 select-none pointer-events-none opacity-50 border-2 rounded-md p-1 text-sm hidden md:block fade-in">
+          ⌘ K
+        </div>
       </div>
       <div className="pb-1">
         <Button
