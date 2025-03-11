@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
 import { Search } from "@/components/Search";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "gifs.run - the fastest way to share gifs",
@@ -26,8 +27,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           href="/images/icons/icon-192x192.png"
         />
       </head>
-      <body className="p-4">
-        <div className="flex pb-4">
+      <body className="px-4">
+        <div className="flex sticky pr-1 pl-1 pb-1 pt-2 top-0 bg-black z-50">
           <Link href="/" aria-label="Go to start page">
             <Image
               src="/images/icons/icon-72x72.png"
@@ -36,11 +37,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
               height="64"
             />
           </Link>
-          <div className="grow pl-4">
+          <div className="pl-4 flex items-center w-full">
             <Search />
           </div>
         </div>
-        <div>{children}</div>
+        <div className="pt-2">{children}</div>
         <div className="flex justify-center pt-8 pb-2">
           <Image
             src="/images/tenor.svg"
@@ -49,6 +50,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             height="25"
           />
         </div>
+        <Toaster />
         <Analytics />
       </body>
     </html>
