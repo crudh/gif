@@ -4,6 +4,7 @@ import { mockedSearchResponse } from "@/test/api/tenor/mocks/searchResponse";
 import { test } from "@/test/browser/fixtures";
 import { testLayout } from "@/test/browser/shared";
 import { getTabKey } from "@/test/browser/utils";
+import { tenorSearchHandler } from "@/test/api/tenor";
 
 test("initial render", async ({ page, baseUrl }) => {
   await page.goto(`${baseUrl}/search/dog`);
@@ -17,6 +18,32 @@ test("initial render", async ({ page, baseUrl }) => {
     name: /Load full preview of gif with description/,
   });
   await expect(gifs).toHaveCount(gifLimit);
+});
+
+test("scrolling to load more gifs", async ({
+  page,
+  baseUrl,
+  requestInterceptor,
+}) => {
+  requestInterceptor.use(
+    tenorSearchHandler(200, mockedSearchResponse, { delay: 200 }),
+  );
+
+  await page.goto(`${baseUrl}/search/dog`);
+
+  const gifs = page.getByRole("button", {
+    name: /Load full preview of gif with description/,
+  });
+  await expect(gifs).toHaveCount(gifLimit);
+
+  await page.evaluate(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  await expect(page.getByRole("progressbar")).toBeVisible();
+
+  await expect(gifs).toHaveCount(gifLimit * 2);
+  await expect(page.getByRole("progressbar")).not.toBeVisible();
 });
 
 test("selecting a gif and copying the url", async ({
@@ -38,6 +65,8 @@ test("selecting a gif and copying the url", async ({
   });
 
   await clipboard.click();
+
+  await expect(page.getByText("Copied!")).toBeVisible();
 
   // https://github.com/microsoft/playwright/issues/34307
   if (!(browserName === "webkit" && process.env.CI)) {
@@ -137,4 +166,24 @@ test("keyboard navigation of searching for gifs", async ({
   await page.keyboard.press("Enter");
 
   await expect(page).toHaveURL(`${baseUrl}/search/cats`);
+});
+
+test("keyboard shortcut to focus search", async ({
+  page,
+  baseUrl,
+  browserName,
+}) => {
+  await page.goto(`${baseUrl}/search/dog`);
+  const tabKey = getTabKey(browserName);
+
+  const searchInput = page.getByRole("textbox", { name: "search" });
+  await expect(searchInput).toBeFocused();
+
+  await page.keyboard.press(tabKey);
+
+  await expect(searchInput).not.toBeFocused();
+
+  await page.keyboard.press("ControlOrMeta+k");
+
+  await expect(searchInput).toBeFocused();
 });

@@ -33,6 +33,7 @@
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "test:browser": "playwright test",
+    "test:browser:ui": "playwright test --ui",
     "test:browser:install": "playwright install --with-deps --only-shell"
   },
   "dependencies": {

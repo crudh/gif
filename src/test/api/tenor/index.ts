@@ -1,4 +1,4 @@
-import { HttpResponse, http } from "msw";
+import { delay, HttpResponse, http, type DelayMode } from "msw";
 import { tenorBaseUrl } from "@/constants";
 import { mockedFeaturedResponse } from "@/test/api/tenor/mocks/featuredResponse";
 import { mockedSearchResponse } from "@/test/api/tenor/mocks/searchResponse";
@@ -18,8 +18,13 @@ export const tenorFeaturedHandler = (
 export const tenorSearchHandler = (
   status: number = 200,
   response: TenorResponse = mockedSearchResponse,
+  options?: { delay: DelayMode | number },
 ) =>
-  http.get(`${tenorBaseUrl}search`, () => {
+  http.get(`${tenorBaseUrl}search`, async () => {
+    if (options?.delay) {
+      await delay(options.delay);
+    }
+
     if (!isOkStatus(status)) return new HttpResponse(null, { status });
 
     return HttpResponse.json(response, { status });

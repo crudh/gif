@@ -4,8 +4,8 @@ import { startTransition, useActionState, useEffect, useState } from "react";
 import { handleSearchGifs } from "@/actions";
 import type { Gif, GifsResult } from "@/types/Gif";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
-import { IconSpinner } from "@/icons/IconSpinner";
 import { GifPreview } from "@/components/GifPreview";
+import { Loading } from "./Loeding";
 
 export const MoreGifs = ({
   searchTerm,
@@ -46,7 +46,7 @@ export const MoreGifs = ({
         />
       ))}
       <div ref={intersectionRef} className="flex justify-center w-full p-8">
-        {isPending && <IconSpinner />}
+        <Loading isLoading={isPending} />
       </div>
     </>
   );

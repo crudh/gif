@@ -39,6 +39,8 @@ test("selecting a gif and copying the url", async ({
 
   await clipboard.click();
 
+  await expect(page.getByText("Copied!")).toBeVisible();
+
   // https://github.com/microsoft/playwright/issues/34307
   if (!(browserName === "webkit" && process.env.CI)) {
     const clipboardText = await page.evaluate(() =>
@@ -135,4 +137,24 @@ test("keyboard navigation of searching for gifs", async ({
   await page.keyboard.press("Enter");
 
   await expect(page).toHaveURL(`${baseUrl}/search/cats`);
+});
+
+test("keyboard shortcut to focus search", async ({
+  page,
+  baseUrl,
+  browserName,
+}) => {
+  await page.goto(`${baseUrl}/search/dog`);
+  const tabKey = getTabKey(browserName);
+
+  const searchInput = page.getByRole("textbox", { name: "search" });
+  await expect(searchInput).toBeFocused();
+
+  await page.keyboard.press(tabKey);
+
+  await expect(searchInput).not.toBeFocused();
+
+  await page.keyboard.press("ControlOrMeta+k");
+
+  await expect(searchInput).toBeFocused();
 });
