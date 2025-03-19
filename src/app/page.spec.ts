@@ -138,3 +138,23 @@ test("keyboard navigation of searching for gifs", async ({
 
   await expect(page).toHaveURL(`${baseUrl}/search/cats`);
 });
+
+test("keyboard shortcut to focus search", async ({
+  page,
+  baseUrl,
+  browserName,
+}) => {
+  await page.goto(`${baseUrl}/search/dog`);
+  const tabKey = getTabKey(browserName);
+
+  const searchInput = page.getByRole("textbox", { name: "search" });
+  await expect(searchInput).toBeFocused();
+
+  await page.keyboard.press(tabKey);
+
+  await expect(searchInput).not.toBeFocused();
+
+  await page.keyboard.press("ControlOrMeta+k");
+
+  await expect(searchInput).toBeFocused();
+});
