@@ -4,6 +4,7 @@ import { mockedSearchResponse } from "@/test/api/tenor/mocks/searchResponse";
 import { test } from "@/test/browser/fixtures";
 import { testLayout } from "@/test/browser/shared";
 import { getTabKey } from "@/test/browser/utils";
+import { tenorSearchHandler } from "@/test/api/tenor";
 
 test("initial render", async ({ page, baseUrl }) => {
   await page.goto(`${baseUrl}/search/dog`);
@@ -17,6 +18,32 @@ test("initial render", async ({ page, baseUrl }) => {
     name: /Load full preview of gif with description/,
   });
   await expect(gifs).toHaveCount(gifLimit);
+});
+
+test("scrolling to load more gifs", async ({
+  page,
+  baseUrl,
+  requestInterceptor,
+}) => {
+  requestInterceptor.use(
+    tenorSearchHandler(200, mockedSearchResponse, { delay: 100 }),
+  );
+
+  await page.goto(`${baseUrl}/search/dog`);
+
+  const gifs = page.getByRole("button", {
+    name: /Load full preview of gif with description/,
+  });
+  await expect(gifs).toHaveCount(gifLimit);
+
+  await page.evaluate(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  await expect(page.getByRole("progressbar")).toBeVisible();
+
+  await expect(gifs).toHaveCount(gifLimit * 2);
+  await expect(page.getByRole("progressbar")).not.toBeVisible();
 });
 
 test("selecting a gif and copying the url", async ({
