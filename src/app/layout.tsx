@@ -31,7 +31,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="flex sticky pr-1 pl-1 pb-1 pt-2 top-0 bg-black z-50">
           <Link href="/" aria-label="Go to start page">
             <Image
-              src="/images/icons/icon-72x72.png"
+              src="/images/icons/icon-512x512.png"
               alt="gifs.run logo"
               width="64"
               height="64"
