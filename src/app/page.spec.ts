@@ -39,6 +39,8 @@ test("selecting a gif and copying the url", async ({
 
   await clipboard.click();
 
+  await expect(page.getByText("Copied!")).toBeVisible();
+
   // https://github.com/microsoft/playwright/issues/34307
   if (!(browserName === "webkit" && process.env.CI)) {
     const clipboardText = await page.evaluate(() =>
