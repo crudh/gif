@@ -21,6 +21,7 @@ export const Toaster = ({ ...props }: ToasterProps) => {
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground font-medium",
           title: "font-bold",
           icon: "pr-6",
+          error: "!border-2 !border-red-500",
         },
       }}
       {...props}

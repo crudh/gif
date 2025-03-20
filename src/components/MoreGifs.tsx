@@ -6,6 +6,7 @@ import type { Gif, GifsResult } from "@/types/Gif";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { GifPreview } from "@/components/GifPreview";
 import { Loading } from "./Loeding";
+import { toast } from "sonner";
 
 export const MoreGifs = ({
   searchTerm,
@@ -20,10 +21,23 @@ export const MoreGifs = ({
 
   const [gifs, onLoadMore, isPending] = useActionState<Gif[]>(
     async (previousState) => {
-      const newGifsResult = await handleSearchGifs(searchTerm, next);
-      setNext(newGifsResult.next);
+      try {
+        const newGifsResult = await handleSearchGifs(searchTerm, next);
 
-      return [...previousState, ...newGifsResult.gifs];
+        setNext(newGifsResult.next);
+        return [...previousState, ...newGifsResult.gifs];
+      } catch {
+        toast.error("Failed to load more!", {
+          description: "No more GIFs could be loaded",
+          duration: 300000,
+          action: {
+            label: "Try again",
+            onClick: onLoadMore,
+          },
+        });
+
+        return previousState;
+      }
     },
     [],
   );
