@@ -46,6 +46,34 @@ test("scrolling to load more gifs", async ({
   await expect(page.getByRole("progressbar")).not.toBeVisible();
 });
 
+test("handle error on scroll", async ({
+  page,
+  baseUrl,
+  requestInterceptor,
+}) => {
+  requestInterceptor.use(tenorSearchHandler(200, mockedSearchResponse));
+
+  await page.goto(`${baseUrl}/search/dog`);
+
+  const gifs = page.getByRole("button", {
+    name: /Load full preview of gif with description/,
+  });
+  await expect(gifs).toHaveCount(gifLimit);
+
+  requestInterceptor.use(tenorSearchHandler(500, undefined, { delay: 200 }));
+
+  await page.evaluate(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  await expect(page.getByRole("progressbar")).toBeVisible();
+  await expect(page.getByRole("progressbar")).not.toBeVisible();
+
+  await expect(page.getByText("Failed to load more!")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Try again" })).toBeVisible();
+  await expect(gifs).toHaveCount(gifLimit);
+});
+
 test("selecting a gif and copying the url", async ({
   page,
   baseUrl,
