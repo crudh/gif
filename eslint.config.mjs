@@ -1,7 +1,7 @@
-import eslintConfigPrettier from "eslint-config-prettier";
-import { FlatCompat } from "@eslint/eslintrc";
 import eslint from "@eslint/js";
-import reactCompiler from "eslint-plugin-react-compiler";
+import { FlatCompat } from "@eslint/eslintrc";
+import eslintConfigPrettier from "eslint-config-prettier";
+import * as reactHooks from "eslint-plugin-react-hooks";
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -9,16 +9,14 @@ const compat = new FlatCompat({
 
 const config = [
   eslint.configs.recommended,
-  ...compat.config({
-    extends: ["next/core-web-vitals", "next/typescript"],
-  }),
+  reactHooks.configs.recommended,
   eslintConfigPrettier,
+  ...compat.config({
+    extends: ["plugin:@next/next/core-web-vitals", "next/typescript"],
+  }),
   {
-    plugins: {
-      "react-compiler": reactCompiler,
-    },
     rules: {
-      "react-compiler/react-compiler": "error",
+      "react-hooks/react-compiler": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
