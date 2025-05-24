@@ -56,6 +56,5 @@ export const Clipboard = ({
     >
       <IconClipboard />
     </div>
-    // </div>
   );
 };
