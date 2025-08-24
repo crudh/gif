@@ -29,7 +29,7 @@
     "check": "pnpm types:check && pnpm lint && pnpm format:check",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "types:check": "tsc --noEmit",
+    "types:check": "next typegen && tsc --noEmit",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
     "test:browser": "playwright test",
