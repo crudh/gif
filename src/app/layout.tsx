@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "quickly get the perfect gif for your message",
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: LayoutProps<"/">) => {
   return (
     <html lang="en" className="text-white bg-black">
       <head>

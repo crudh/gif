@@ -9,9 +9,7 @@ export const dynamic = "force-static";
 
 const SearchResultPage = async ({
   params,
-}: {
-  params: Promise<{ searchTerm: string }>;
-}) => {
+}: PageProps<"/search/[searchTerm]">) => {
   const { searchTerm: searchTermParam } = await params;
   const searchTerm = decodeURIComponent(searchTermParam);
   const gifsResult = await searchGifs(searchTerm);
