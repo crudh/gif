@@ -1,7 +1,7 @@
 import eslint from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
 import eslintConfigPrettier from "eslint-config-prettier";
-import * as reactHooks from "eslint-plugin-react-hooks";
+import reactHooks from "eslint-plugin-react-hooks";
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -18,14 +18,13 @@ const config = [
     ],
   },
   eslint.configs.recommended,
-  reactHooks.configs.recommended,
+  reactHooks.configs.flat.recommended,
   eslintConfigPrettier,
   ...compat.config({
     extends: ["plugin:@next/next/core-web-vitals", "next/typescript"],
   }),
   {
     rules: {
-      "react-hooks/react-compiler": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
