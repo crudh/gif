@@ -15,6 +15,7 @@ export const test = base.extend<
     async ({ browser: _browser }, use) => {
       const app = next({
         dev: false,
+        quiet: true,
         dir: path.resolve(__dirname, "../../.."),
       });
       await app.prepare();
