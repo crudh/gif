@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactCompiler: true,
   typedRoutes: true,
   logging: {
     fetches: {
@@ -7,7 +8,7 @@ const nextConfig = {
     },
   },
   experimental: {
-    reactCompiler: true,
+    turbopackFileSystemCacheForDev: true,
   },
 };
 
