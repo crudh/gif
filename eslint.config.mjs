@@ -20,9 +20,7 @@ const config = [
   eslint.configs.recommended,
   reactHooks.configs.flat.recommended,
   eslintConfigPrettier,
-  ...compat.config({
-    extends: ["plugin:@next/next/core-web-vitals", "next/typescript"],
-  }),
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
       "@typescript-eslint/no-unused-vars": [

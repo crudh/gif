@@ -12,10 +12,10 @@ export const test = base.extend<
   { baseUrl: string }
 >({
   baseUrl: [
-    // eslint-disable-next-line no-empty-pattern
-    async ({}, use) => {
+    async ({ browser: _browser }, use) => {
       const app = next({
         dev: false,
+        quiet: true,
         dir: path.resolve(__dirname, "../../.."),
       });
       await app.prepare();
@@ -40,8 +40,7 @@ export const test = base.extend<
     { scope: "worker", auto: true },
   ],
   requestInterceptor: [
-    // eslint-disable-next-line no-empty-pattern
-    async ({}, use) => {
+    async ({ browser: _browser }, use) => {
       let requestInterceptor: SetupServerApi;
 
       await use(

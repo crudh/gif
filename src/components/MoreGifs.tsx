@@ -1,6 +1,13 @@
 "use client";
 
-import { startTransition, useActionState, useEffect, useState } from "react";
+import {
+  startTransition,
+  useActionState,
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+} from "react";
 import { handleSearchGifs } from "@/actions";
 import type { Gif, GifsResult } from "@/types/Gif";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
@@ -16,6 +23,7 @@ export const MoreGifs = ({
   initialResult: GifsResult;
 }) => {
   const [next, setNext] = useState<string | undefined>(initialResult.next);
+  const onLoadMoreRef = useRef<() => void>(null);
   const [intersectionRef, isIntersecting] =
     useIntersectionObserver<HTMLDivElement>();
 
@@ -32,7 +40,7 @@ export const MoreGifs = ({
           duration: 300000,
           action: {
             label: "Try again",
-            onClick: onLoadMore,
+            onClick: () => onLoadMoreRef.current?.(),
           },
         });
 
@@ -43,10 +51,20 @@ export const MoreGifs = ({
   );
 
   useEffect(() => {
-    if (!isIntersecting || isPending || !next) return;
+    onLoadMoreRef.current = onLoadMore;
+  }, [onLoadMore]);
 
-    startTransition(onLoadMore);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleIntersection = useEffectEvent(
+    (interSectionTriggered: boolean) => {
+      if (!interSectionTriggered || !isIntersecting || isPending || !next)
+        return;
+
+      startTransition(onLoadMore);
+    },
+  );
+
+  useEffect(() => {
+    handleIntersection(isIntersecting);
   }, [isIntersecting]);
 
   return (
