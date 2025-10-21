@@ -11,16 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "22"
           cache: "pnpm"
       - run: pnpm install
-      - run: pnpm format:check
       - run: pnpm types:check
-      - run: pnpm lint
-      - run: pnpm build:dynamic
+      - run: pnpm lint:check
+      - run: pnpm format:check
       - run: pnpm test:browser:install
-      - run: pnpm test:browser
+      - run: pnpm test:browser:build
+      - run: pnpm test:browser:ci
