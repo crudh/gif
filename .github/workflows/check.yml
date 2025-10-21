@@ -18,6 +18,7 @@ jobs:
           node-version: "22"
           cache: "pnpm"
       - run: pnpm install
+      - run: pnpm types:gen
       - run: pnpm types:check
       - run: pnpm lint:check
       - run: pnpm format:check
