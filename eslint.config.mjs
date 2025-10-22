@@ -1,26 +1,16 @@
+import { defineConfig, globalIgnores } from "eslint/config";
 import eslint from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
 import eslintConfigPrettier from "eslint-config-prettier";
 import reactHooks from "eslint-plugin-react-hooks";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
-
-const config = [
-  {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
-  },
+const eslintConfig = defineConfig([
   eslint.configs.recommended,
   reactHooks.configs.flat.recommended,
   eslintConfigPrettier,
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...nextVitals,
+  ...nextTs,
   {
     rules: {
       "@typescript-eslint/no-unused-vars": [
@@ -32,6 +22,7 @@ const config = [
       "@typescript-eslint/consistent-type-imports": "error",
     },
   },
-];
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+]);
 
-export default config;
+export default eslintConfig;
