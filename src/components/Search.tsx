@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import { useActionState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
@@ -39,13 +40,21 @@ export const Search = () => {
           type="text"
           name="search"
           className="h-14 md:text-lg pt-0 pb-0"
-          placeholder="Search for a gif"
+          placeholder="Search KLIPY"
           defaultValue={activeSearch}
           ref={searchRef}
           autoFocus
         />
         <div className="absolute right-4 top-3 select-none pointer-events-none opacity-50 border-2 rounded-md p-1 text-sm hidden md:block fade-in">
           ⌘ K
+        </div>
+        <div className="absolute right-18 top-2 pointer-events-none opacity-50 hidden md:block fade-in">
+          <Image
+            src="/images/klipy.svg"
+            alt="Powered by Klipy"
+            width="198"
+            height="25"
+          />
         </div>
       </div>
       <div className="pb-1">
@@ -55,7 +64,7 @@ export const Search = () => {
           variant="outline"
           loading={isPending}
         >
-          Search
+          SEARCH
         </Button>
       </div>
     </form>
