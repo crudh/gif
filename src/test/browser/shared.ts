@@ -18,6 +18,6 @@ export const testLayout = async (page: Page) => {
   const searchButton = page.getByRole("button", { name: "Search" });
   await expect(searchButton).toBeVisible();
 
-  const footer = page.getByRole("img", { name: "Powered by Tenor" });
+  const footer = page.getByRole("img", { name: "Powered by Klipy" });
   await expect(footer).toBeVisible();
 };

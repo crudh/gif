@@ -1,7 +1,7 @@
 "use server";
 
 import { deployEnv } from "@/constants";
-import { searchGifs, shareEvent } from "@/api/tenor";
+import { searchGifs, shareEvent } from "@/api/klipy";
 import type { GifsResult } from "@/types/Gif";
 
 export const handleSearchGifs = async (
@@ -10,10 +10,10 @@ export const handleSearchGifs = async (
 ): Promise<GifsResult> => searchGifs(searchTerm, { next });
 
 export const handleShared = async (
-  id: string,
+  slug: string,
   searchTerm: string,
 ): Promise<void> => {
   if (deployEnv !== "production") return;
 
-  shareEvent(id, searchTerm);
+  shareEvent(slug, searchTerm);
 };

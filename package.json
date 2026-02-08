@@ -1,7 +1,7 @@
 {
   "name": "gif",
   "version": "1.0.0",
-  "description": "UI for searching gifs using Tenor",
+  "description": "UI for searching gifs using Klipy",
   "keywords": [
     "gif",
     "search",
@@ -32,10 +32,9 @@
     "lint:fix": "eslint --fix .",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
-    "test:browser": "pnpm test:browser:build && playwright test",
+    "test:browser": "pnpm build && playwright test",
     "test:browser:ci": "playwright test",
     "test:browser:ui": "playwright test --ui",
-    "test:browser:build": "pnpm types:gen && next build --experimental-build-mode compile",
     "test:browser:install": "playwright install --with-deps --only-shell"
   },
   "dependencies": {

@@ -1,26 +1,26 @@
 import { delay, HttpResponse, http, type DelayMode } from "msw";
-import { tenorBaseUrl } from "@/constants";
-import { mockedFeaturedResponse } from "@/test/api/tenor/mocks/featuredResponse";
-import { mockedSearchResponse } from "@/test/api/tenor/mocks/searchResponse";
-import type { TenorResponse } from "@/types/Tenor";
 import { isOkStatus } from "@/utils/net";
+import type { KlipyGifResponse } from "@/types/Klipy";
+import { mockedTrendingResponse } from "./mocks/trendingResponse";
+import { mockedSearchResponse } from "./mocks/searchResponse";
+import { klipyBaseUrl } from "@/constants";
 
-export const tenorFeaturedHandler = (
+export const klipyTrendingHandler = (
   status: number = 200,
-  response: TenorResponse = mockedFeaturedResponse,
+  response: KlipyGifResponse = mockedTrendingResponse,
 ) =>
-  http.get(`${tenorBaseUrl}featured`, () => {
+  http.get(`${klipyBaseUrl}/:apiKey/gifs/trending`, () => {
     if (!isOkStatus(status)) return new HttpResponse(null, { status });
 
     return HttpResponse.json(response, { status });
   });
 
-export const tenorSearchHandler = (
+export const klipySearchHandler = (
   status: number = 200,
-  response: TenorResponse = mockedSearchResponse,
+  response: KlipyGifResponse = mockedSearchResponse,
   options?: { delay: DelayMode | number },
 ) =>
-  http.get(`${tenorBaseUrl}search`, async () => {
+  http.get(`${klipyBaseUrl}/:apiKey/gifs/search`, async () => {
     if (options?.delay) {
       await delay(options.delay);
     }
@@ -30,8 +30,8 @@ export const tenorSearchHandler = (
     return HttpResponse.json(response, { status });
   });
 
-export const tenorRegisterShareHandler = (status: number = 200) =>
-  http.get(`${tenorBaseUrl}registershare`, () => {
+export const klipyShareHandler = (status: number = 200) =>
+  http.get(`${klipyBaseUrl}/:apiKey/gifs/share/:slug`, () => {
     if (!isOkStatus(status)) return new HttpResponse(null, { status });
 
     return HttpResponse.json({}, { status });

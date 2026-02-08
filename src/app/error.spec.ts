@@ -1,13 +1,13 @@
 import { type Page, expect } from "@playwright/test";
-import { tenorFeaturedHandler, tenorSearchHandler } from "@/test/api/tenor";
 import { test } from "@/test/browser/fixtures";
 import { testLayout } from "@/test/browser/shared";
+import { klipySearchHandler, klipyTrendingHandler } from "@/test/api/klipy";
 
 const testPage = async (page: Page) => {
   await testLayout(page);
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   await expect(gifs).toHaveCount(0);
 
@@ -25,7 +25,7 @@ test("should trigger from the main page", async ({
   baseUrl,
   requestInterceptor,
 }) => {
-  requestInterceptor.use(tenorFeaturedHandler(500));
+  requestInterceptor.use(klipyTrendingHandler(500));
 
   await page.goto(baseUrl);
 
@@ -40,7 +40,7 @@ test("should trigger from the search page", async ({
   baseUrl,
   requestInterceptor,
 }) => {
-  requestInterceptor.use(tenorSearchHandler(500));
+  requestInterceptor.use(klipySearchHandler(500));
 
   await page.goto(`${baseUrl}/search/dog`);
 

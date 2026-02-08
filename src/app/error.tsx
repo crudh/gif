@@ -19,7 +19,7 @@ const Error = ({
       <title>gifs.run - the fastest way to share gifs</title>
       <div>
         <img
-          src="https://media.tenor.com/U5RwBfkG6t8AAAAd/elmo-flames.gif"
+          src="https://static.klipy.com/ii/d7aec6f6f171607374b2065c836f92f4/7b/32/QFYgwxFe.gif"
           alt="an error occured"
         />
       </div>

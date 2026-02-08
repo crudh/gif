@@ -1,10 +1,10 @@
 export type Gif = {
-  id: string;
-  altText: string | undefined;
+  id: number;
+  slug: string;
+  title: string | undefined;
+  blurUrl: string;
   previewUrl: string;
-  previewWidth: number;
-  previewHeight: number;
-  previewUrlFull: string;
+  previewUrlHighQuality: string;
   shareUrl: string;
 };
 

@@ -37,7 +37,7 @@ export const Clipboard = ({
         });
       })
       .catch((error) => console.error("Failed to copy", error))
-      .then(() => handleShared(gif.id, searchTerm))
+      .then(() => handleShared(gif.slug, searchTerm))
       .catch((error) => console.error("Failed to register share", error));
   };
 

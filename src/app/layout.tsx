@@ -45,7 +45,7 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
         <div className="flex justify-center pt-8 pb-2">
           <Image
             src="/images/tenor.svg"
-            alt="Powered by Tenor"
+            alt="Powered by Klipy"
             width="198"
             height="25"
           />
