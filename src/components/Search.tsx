@@ -51,7 +51,7 @@ export const Search = () => {
         <div className="absolute right-18 top-2 pointer-events-none opacity-50 hidden md:block fade-in">
           <Image
             src="/images/klipy.svg"
-            alt="Powered by Klipy"
+            alt="Search by Klipy"
             width="198"
             height="25"
           />
