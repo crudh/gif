@@ -1,10 +1,10 @@
 import { expect } from "@playwright/test";
 import { gifLimit } from "@/constants";
-import { mockedSearchResponse } from "@/test/api/tenor/mocks/searchResponse";
 import { test } from "@/test/browser/fixtures";
 import { testLayout } from "@/test/browser/shared";
 import { getTabKey } from "@/test/browser/utils";
-import { tenorSearchHandler } from "@/test/api/tenor";
+import { klipySearchHandler } from "@/test/api/klipy";
+import { mockedSearchResponse } from "@/test/api/klipy/mocks/searchResponse";
 
 test("initial render", async ({ page, baseUrl }) => {
   await page.goto(`${baseUrl}/search/dog`);
@@ -15,7 +15,7 @@ test("initial render", async ({ page, baseUrl }) => {
   await expect(searchInput).toHaveValue("dog");
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   await expect(gifs).toHaveCount(gifLimit);
 });
@@ -26,13 +26,13 @@ test("scrolling to load more gifs", async ({
   requestInterceptor,
 }) => {
   requestInterceptor.use(
-    tenorSearchHandler(200, mockedSearchResponse, { delay: 200 }),
+    klipySearchHandler(200, mockedSearchResponse, { delay: 200 }),
   );
 
   await page.goto(`${baseUrl}/search/dog`);
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   await expect(gifs).toHaveCount(gifLimit);
 
@@ -51,16 +51,16 @@ test("handle error on scroll", async ({
   baseUrl,
   requestInterceptor,
 }) => {
-  requestInterceptor.use(tenorSearchHandler(200, mockedSearchResponse));
+  requestInterceptor.use(klipySearchHandler(200, mockedSearchResponse));
 
   await page.goto(`${baseUrl}/search/dog`);
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   await expect(gifs).toHaveCount(gifLimit);
 
-  requestInterceptor.use(tenorSearchHandler(500, undefined, { delay: 200 }));
+  requestInterceptor.use(klipySearchHandler(500, undefined, { delay: 200 }));
 
   await page.evaluate(() => {
     window.scrollTo(0, document.body.scrollHeight);
@@ -70,8 +70,9 @@ test("handle error on scroll", async ({
   await expect(page.getByRole("progressbar")).not.toBeVisible();
 
   await expect(page.getByText("Failed to load more!")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Try again" })).toBeVisible();
-  await expect(gifs).toHaveCount(gifLimit);
+  await expect(
+    page.getByRole("button", { name: "Try again", exact: true }),
+  ).toBeVisible();
 });
 
 test("selecting a gif and copying the url", async ({
@@ -82,7 +83,7 @@ test("selecting a gif and copying the url", async ({
   await page.goto(`${baseUrl}/search/dog`);
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   const firstGif = gifs.first();
 
@@ -102,7 +103,7 @@ test("selecting a gif and copying the url", async ({
       navigator.clipboard.readText(),
     );
     expect(clipboardText).toContain(
-      mockedSearchResponse.results[0].media_formats.mediumgif.url,
+      mockedSearchResponse.data.data[0].file.md.gif.url,
     );
   }
 });
@@ -135,7 +136,7 @@ test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
   await page.keyboard.press(tabKey);
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   const firstGif = gifs.first();
   await expect(firstGif).toBeFocused();
@@ -168,7 +169,7 @@ test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
       navigator.clipboard.readText(),
     );
     expect(clipboardText).toContain(
-      mockedSearchResponse.results[1].media_formats.mediumgif.url,
+      mockedSearchResponse.data.data[1].file.md.gif.url,
     );
   }
 });

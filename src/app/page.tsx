@@ -1,10 +1,6 @@
-import { trendingGifs } from "@/api/tenor";
+import { trendingGifs } from "@/api/klipy";
 import { GifsGrid } from "@/components/GifsGrid";
 import { GifPreview } from "@/components/GifPreview";
-
-// 24 hours
-export const revalidate = 86400;
-export const dynamic = "force-static";
 
 const IndexPage = async () => {
   const gifsResult = await trendingGifs();

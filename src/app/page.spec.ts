@@ -1,9 +1,9 @@
 import { expect } from "@playwright/test";
 import { gifLimit } from "@/constants";
-import { mockedFeaturedResponse } from "@/test/api/tenor/mocks/featuredResponse";
 import { test } from "@/test/browser/fixtures";
 import { testLayout } from "@/test/browser/shared";
 import { getTabKey } from "@/test/browser/utils";
+import { mockedTrendingResponse } from "@/test/api/klipy/mocks/trendingResponse";
 
 test("initial render", async ({ page, baseUrl }) => {
   await page.goto(baseUrl);
@@ -14,7 +14,7 @@ test("initial render", async ({ page, baseUrl }) => {
   await expect(searchInput).toBeEmpty();
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   await expect(gifs).toHaveCount(gifLimit);
 });
@@ -27,7 +27,7 @@ test("selecting a gif and copying the url", async ({
   await page.goto(baseUrl);
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   const firstGif = gifs.first();
 
@@ -47,7 +47,7 @@ test("selecting a gif and copying the url", async ({
       navigator.clipboard.readText(),
     );
     expect(clipboardText).toContain(
-      mockedFeaturedResponse.results[0].media_formats.mediumgif.url,
+      mockedTrendingResponse.data.data[0].file.md.gif.url,
     );
   }
 });
@@ -79,7 +79,7 @@ test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
   await page.keyboard.press(tabKey);
 
   const gifs = page.getByRole("button", {
-    name: /Load full preview of gif with description/,
+    name: /Load high quality preview of gif with description/,
   });
   const firstGif = gifs.first();
   await expect(firstGif).toBeFocused();
@@ -112,7 +112,7 @@ test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
       navigator.clipboard.readText(),
     );
     expect(clipboardText).toContain(
-      mockedFeaturedResponse.results[1].media_formats.mediumgif.url,
+      mockedTrendingResponse.data.data[1].file.md.gif.url,
     );
   }
 });

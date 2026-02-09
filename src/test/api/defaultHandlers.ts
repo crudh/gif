@@ -1,11 +1,11 @@
 import {
-  tenorFeaturedHandler,
-  tenorRegisterShareHandler,
-  tenorSearchHandler,
-} from "@/test/api/tenor";
+  klipySearchHandler,
+  klipyShareHandler,
+  klipyTrendingHandler,
+} from "./klipy";
 
 export const defaultHandlers = [
-  tenorFeaturedHandler(),
-  tenorSearchHandler(),
-  tenorRegisterShareHandler(),
+  klipyTrendingHandler(),
+  klipySearchHandler(),
+  klipyShareHandler(),
 ];

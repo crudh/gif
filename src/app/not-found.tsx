@@ -6,7 +6,7 @@ const NotFound = () => {
     <div className="flex flex-col items-center pt-10">
       <div>
         <img
-          src="https://media.tenor.com/LchcgwGTaTUAAAAd/404-404not-found.gif"
+          src="https://static.klipy.com/ii/c3a19a0b747a76e98651f2b9a3cca5ff/48/66/6C4A3eYc.gif"
           alt="page not found"
         />
       </div>

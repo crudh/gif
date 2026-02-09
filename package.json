@@ -1,11 +1,11 @@
 {
   "name": "gif",
   "version": "1.0.0",
-  "description": "UI for searching gifs using Tenor",
+  "description": "UI for searching gifs using Klipy",
   "keywords": [
     "gif",
     "search",
-    "tenor",
+    "klipy",
     "ui"
   ],
   "homepage": "https://github.com/crudh/gif",
@@ -32,10 +32,9 @@
     "lint:fix": "eslint --fix .",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
-    "test:browser": "pnpm test:browser:build && playwright test",
+    "test:browser": "pnpm build && playwright test",
     "test:browser:ci": "playwright test",
     "test:browser:ui": "playwright test --ui",
-    "test:browser:build": "pnpm types:gen && next build --experimental-build-mode compile",
     "test:browser:install": "playwright install --with-deps --only-shell"
   },
   "dependencies": {
@@ -56,10 +55,10 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@next/eslint-plugin-next": "^16.1.6",
-    "@playwright/test": "^1.58.1",
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^24.10.10",
-    "@types/react": "^19.2.10",
+    "@types/node": "^24.10.12",
+    "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "babel-plugin-react-compiler": "^1.0.0",
@@ -67,7 +66,7 @@
     "eslint-config-next": "^16.1.6",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "msw": "^2.12.7",
+    "msw": "^2.12.9",
     "postcss": "^8.5.6",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.18",

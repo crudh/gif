@@ -23,5 +23,5 @@ jobs:
       - run: pnpm lint:check
       - run: pnpm format:check
       - run: pnpm test:browser:install
-      - run: pnpm test:browser:build
+      - run: pnpm build
       - run: pnpm test:browser:ci
