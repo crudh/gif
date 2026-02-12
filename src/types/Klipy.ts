@@ -63,5 +63,5 @@ export type KlipyGifResponse = {
 
 export type KlipyShareRequest = {
   customer_id: string;
-  q: string;
+  q?: string;
 };

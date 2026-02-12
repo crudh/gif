@@ -106,7 +106,7 @@ export const recentGifs = cache(
     const customerId = await getCustomerId();
 
     const searchParams: KlipyRecentParams = {
-      per_page: `${gifLimit}`,
+      per_page: "32", // 32 is max for this endpoint
       format_filter: formatFilter,
       ...(options?.next ? { page: `${options.next}` } : {}),
     };
@@ -120,7 +120,10 @@ export const recentGifs = cache(
   },
 );
 
-export const shareEvent = async (slug: string, searchTerm: string) => {
+export const shareEvent = async (
+  slug: string,
+  searchTerm?: string,
+): Promise<void> => {
   const customerId = await getCustomerId();
 
   const url = createURL("share", {
