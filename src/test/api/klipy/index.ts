@@ -8,8 +8,13 @@ import { klipyBaseUrl } from "@/constants";
 export const klipyTrendingHandler = (
   status: number = 200,
   response: KlipyGifResponse = mockedTrendingResponse,
+  options?: { delay: DelayMode | number },
 ) =>
-  http.get(`${klipyBaseUrl}/:apiKey/gifs/trending`, () => {
+  http.get(`${klipyBaseUrl}/:apiKey/gifs/trending`, async () => {
+    if (options?.delay) {
+      await delay(options.delay);
+    }
+
     if (!isOkStatus(status)) return new HttpResponse(null, { status });
 
     return HttpResponse.json(response, { status });

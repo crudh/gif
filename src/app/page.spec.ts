@@ -4,6 +4,7 @@ import { test } from "@/test/browser/fixtures";
 import { testLayout } from "@/test/browser/shared";
 import { getTabKey } from "@/test/browser/utils";
 import { mockedTrendingResponse } from "@/test/api/klipy/mocks/trendingResponse";
+import { klipyTrendingHandler } from "@/test/api/klipy";
 
 test("initial render", async ({ page, baseUrl }) => {
   await page.goto(baseUrl);
@@ -17,6 +18,61 @@ test("initial render", async ({ page, baseUrl }) => {
     name: /Load high quality preview of gif with description/,
   });
   await expect(gifs).toHaveCount(gifLimit);
+});
+
+test("scrolling to load more gifs", async ({
+  page,
+  baseUrl,
+  requestInterceptor,
+}) => {
+  requestInterceptor.use(
+    klipyTrendingHandler(200, mockedTrendingResponse, { delay: 200 }),
+  );
+
+  await page.goto(baseUrl);
+
+  const gifs = page.getByRole("button", {
+    name: /Load high quality preview of gif with description/,
+  });
+  await expect(gifs).toHaveCount(gifLimit);
+
+  await page.evaluate(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  await expect(page.getByRole("progressbar")).toBeVisible();
+
+  await expect(gifs).toHaveCount(gifLimit * 2);
+  await expect(page.getByRole("progressbar")).not.toBeVisible();
+});
+
+test("handle error on scroll", async ({
+  page,
+  baseUrl,
+  requestInterceptor,
+}) => {
+  requestInterceptor.use(klipyTrendingHandler(200, mockedTrendingResponse));
+
+  await page.goto(baseUrl);
+
+  const gifs = page.getByRole("button", {
+    name: /Load high quality preview of gif with description/,
+  });
+  await expect(gifs).toHaveCount(gifLimit);
+
+  requestInterceptor.use(klipyTrendingHandler(500, undefined, { delay: 200 }));
+
+  await page.evaluate(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  await expect(page.getByRole("progressbar")).toBeVisible();
+  await expect(page.getByRole("progressbar")).not.toBeVisible();
+
+  await expect(page.getByText("Failed to load more!")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Try again", exact: true }),
+  ).toBeVisible();
 });
 
 test("selecting a gif and copying the url", async ({

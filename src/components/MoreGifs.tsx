@@ -8,7 +8,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { handleSearchGifs } from "@/actions";
 import type { Gif, GifsResult } from "@/types/Gif";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { GifPreview } from "@/components/GifPreview";
@@ -18,9 +17,11 @@ import { toast } from "sonner";
 export const MoreGifs = ({
   searchTerm,
   initialResult,
+  onMoreGifs,
 }: {
   searchTerm: string;
   initialResult: GifsResult;
+  onMoreGifs: (next?: string) => Promise<GifsResult>;
 }) => {
   const [next, setNext] = useState<string | undefined>(initialResult.next);
   const onLoadMoreRef = useRef<() => void>(null);
@@ -30,7 +31,7 @@ export const MoreGifs = ({
   const [gifs, onLoadMore, isPending] = useActionState<Gif[]>(
     async (previousState) => {
       try {
-        const newGifsResult = await handleSearchGifs(searchTerm, next);
+        const newGifsResult = await onMoreGifs(next);
 
         setNext(newGifsResult.next);
         return [...previousState, ...newGifsResult.gifs];
