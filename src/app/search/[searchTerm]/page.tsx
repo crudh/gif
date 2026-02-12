@@ -1,3 +1,4 @@
+import { handleSearchGifs } from "@/actions";
 import { searchGifs } from "@/api/klipy";
 import { GifPreview } from "@/components/GifPreview";
 import { GifsGrid } from "@/components/GifsGrid";
@@ -22,7 +23,11 @@ const SearchResultPage = async ({
         ))}
       </GifsGrid>
       {gifsResult.next && (
-        <MoreGifs searchTerm={searchTerm} initialResult={gifsResult} />
+        <MoreGifs
+          searchTerm={searchTerm}
+          initialResult={gifsResult}
+          onMoreGifs={handleSearchGifs.bind(null, searchTerm)}
+        />
       )}
     </GifsGrid>
   );
