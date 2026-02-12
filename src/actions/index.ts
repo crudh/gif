@@ -1,6 +1,5 @@
 "use server";
 
-import { deployEnv } from "@/constants";
 import { recentGifs, searchGifs, shareEvent, trendingGifs } from "@/api/klipy";
 import type { GifsResult } from "@/types/Gif";
 
@@ -19,7 +18,5 @@ export const handleShared = async (
   slug: string,
   searchTerm?: string,
 ): Promise<void> => {
-  if (deployEnv !== "production") return;
-
   await shareEvent(slug, searchTerm);
 };

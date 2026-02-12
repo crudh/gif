@@ -137,6 +137,9 @@ export const shareEvent = async (
 
   await sendRequest(url, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(body),
   });
 };
