@@ -39,7 +39,9 @@ const createURL = (
 const sendRequest = async (url: URL, options?: RequestInit) => {
   const response = await fetch(url, options);
   if (!response.ok)
-    throw new Error(`Failed to fetch ${url.pathname}: ${response.statusText}`);
+    throw new Error(
+      `Failed to ${options?.method ?? "GET"} ${url.pathname}: ${response.statusText}`,
+    );
 
   return response.json();
 };
