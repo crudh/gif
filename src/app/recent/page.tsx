@@ -1,11 +1,11 @@
-import { handleTrendingGifs } from "@/actions";
-import { trendingGifs } from "@/api/klipy";
+import { handleRecentGifs } from "@/actions";
+import { recentGifs } from "@/api/klipy";
 import { GifPreview } from "@/components/GifPreview";
 import { GifsGrid } from "@/components/GifsGrid";
 import { MoreGifs } from "@/components/MoreGifs";
 
-const IndexPage = async () => {
-  const gifsResult = await trendingGifs();
+const RecentPage = async () => {
+  const gifsResult = await recentGifs();
 
   return (
     <GifsGrid>
@@ -15,10 +15,10 @@ const IndexPage = async () => {
         ))}
       </GifsGrid>
       {gifsResult.next && (
-        <MoreGifs initialResult={gifsResult} onMoreGifs={handleTrendingGifs} />
+        <MoreGifs initialResult={gifsResult} onMoreGifs={handleRecentGifs} />
       )}
     </GifsGrid>
   );
 };
 
-export default IndexPage;
+export default RecentPage;

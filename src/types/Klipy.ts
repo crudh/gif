@@ -1,22 +1,31 @@
-export type KlipyRequestType = "search" | "trending" | "share";
+export type KlipyRequestType = "search" | "trending" | "recent" | "share";
 export type KlipyContentFilter = "off" | "low" | "medium" | "high";
 export type KlipyQuality = "hd" | "md" | "sm" | "xs";
 
 export type KlipyGifFormat = "gif";
 
-export type KlipyBaseParams = {
+export type KlipySearchParams = {
   customer_id: string;
-  page?: string; // default "1"
-  per_page?: string; // default "24"
-  locale?: string; // ISO 3166
+  q: string;
+  page?: string;
+  per_page?: string;
+  locale?: string;
+  format_filter?: KlipyGifFormat;
+  content_filter?: KlipyContentFilter;
+};
+
+export type KlipyTrendingParams = {
+  customer_id: string;
+  page?: string;
+  per_page?: string;
+  locale?: string;
   format_filter?: KlipyGifFormat;
 };
 
-export type KlipyTrendingParams = KlipyBaseParams;
-
-export type KlipySearchParams = KlipyBaseParams & {
-  q: string;
-  content_filter?: KlipyContentFilter;
+export type KlipyRecentParams = {
+  page?: string;
+  per_page?: string;
+  format_filter?: KlipyGifFormat;
 };
 
 export type KlipyGifFile = {
@@ -54,5 +63,5 @@ export type KlipyGifResponse = {
 
 export type KlipyShareRequest = {
   customer_id: string;
-  q: string;
+  q?: string;
 };

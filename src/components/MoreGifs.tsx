@@ -19,7 +19,7 @@ export const MoreGifs = ({
   initialResult,
   onMoreGifs,
 }: {
-  searchTerm: string;
+  searchTerm?: string;
   initialResult: GifsResult;
   onMoreGifs: (next?: string) => Promise<GifsResult>;
 }) => {

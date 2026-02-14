@@ -21,7 +21,7 @@ export const Clipboard = ({
   searchTerm,
 }: {
   gif: Gif;
-  searchTerm: string;
+  searchTerm?: string;
 }) => {
   const [copied, setCopied] = useState(false);
 

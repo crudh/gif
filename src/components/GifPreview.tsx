@@ -10,7 +10,7 @@ export const GifPreview = ({
   searchTerm,
 }: {
   gif: Gif;
-  searchTerm: string;
+  searchTerm?: string;
 }) => {
   const [src, setSrc] = useState(gif.previewUrl);
 

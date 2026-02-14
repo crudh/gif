@@ -8,40 +8,40 @@ import type {
   KlipyGifResponse,
   KlipyGif,
   KlipyShareRequest,
+  KlipyRecentParams,
 } from "@/types/Klipy";
 import { cookies } from "next/headers";
 
-const baseSearchParams = {
-  content_filter: "off",
-  format_filter: "gif",
-  per_page: `${gifLimit}`,
-} as const satisfies Partial<KlipySearchParams>;
-
-const getBaseURL = (requestType: KlipyRequestType) =>
-  `${klipyBaseUrl}/${klipyApiKey}/gifs/${requestType}`;
+const contentFilter = "off";
+const formatFilter = "gif";
 
 const getCustomerId = async (): Promise<string> =>
   (await cookies()).get("cid")?.value ?? "";
 
-const sendGifRequest = async (
-  requestType: "search" | "trending",
-  searchParams?: Record<string, string>,
-  options?: RequestInit,
+const createURL = (
+  requestType: KlipyRequestType,
+  options?: {
+    additionalPath?: string;
+    searchParams?: KlipySearchParams | KlipyTrendingParams | KlipyRecentParams;
+  },
 ) => {
-  const customerId = await getCustomerId();
+  const baseURL = `${klipyBaseUrl}/${klipyApiKey}/gifs/${requestType}`;
+  const additionalPath = options?.additionalPath ?? "";
 
-  const finalSearchParams = new URLSearchParams({
-    ...searchParams,
-    customer_id: customerId,
+  const urlSearchParams = new URLSearchParams({
+    ...(options?.searchParams ?? {}),
   }).toString();
+  const searchParams = urlSearchParams ? `?${urlSearchParams}` : "";
 
-  const url = new URL(
-    `${getBaseURL(requestType)}${finalSearchParams ? `?${finalSearchParams}` : ""}`,
-  );
+  return new URL(`${baseURL}${additionalPath}${searchParams}`);
+};
 
+const sendRequest = async (url: URL, options?: RequestInit) => {
   const response = await fetch(url, options);
   if (!response.ok)
-    throw new Error(`Failed to fetch ${requestType}: ${response.statusText}`);
+    throw new Error(
+      `Failed to ${options?.method ?? "GET"} ${url.pathname}: ${response.statusText}`,
+    );
 
   return response.json();
 };
@@ -65,44 +65,83 @@ const transformGifResponse = (response: KlipyGifResponse): GifsResult => ({
 
 export const searchGifs = cache(
   async (searchTerm: string, options?: SearchOptions): Promise<GifsResult> => {
-    const params: Omit<KlipySearchParams, "customer_id"> = {
-      ...baseSearchParams,
+    const customerId = await getCustomerId();
+
+    const searchParams: KlipySearchParams = {
       q: searchTerm,
+      customer_id: customerId,
+      per_page: `${gifLimit}`,
+      content_filter: contentFilter,
+      format_filter: formatFilter,
       ...(options?.next ? { page: `${options.next}` } : {}),
     };
 
-    return sendGifRequest("search", params).then(transformGifResponse);
+    const url = createURL("search", {
+      searchParams,
+    });
+
+    return sendRequest(url).then(transformGifResponse);
   },
 );
 
 export const trendingGifs = cache(
   async (options?: SearchOptions): Promise<GifsResult> => {
-    const params: Omit<KlipyTrendingParams, "customer_id"> = {
-      ...baseSearchParams,
+    const customerId = await getCustomerId();
+
+    const searchParams: KlipyTrendingParams = {
+      customer_id: customerId,
+      per_page: `${gifLimit}`,
+      format_filter: formatFilter,
       ...(options?.next ? { page: `${options.next}` } : {}),
     };
 
-    return sendGifRequest("trending", params).then(transformGifResponse);
+    const url = createURL("trending", {
+      searchParams,
+    });
+
+    return sendRequest(url).then(transformGifResponse);
   },
 );
 
-export const shareEvent = async (slug: string, searchTerm: string) => {
+export const recentGifs = cache(
+  async (options?: SearchOptions): Promise<GifsResult> => {
+    const customerId = await getCustomerId();
+
+    const searchParams: KlipyRecentParams = {
+      per_page: "32", // 32 is max for this endpoint
+      format_filter: formatFilter,
+      ...(options?.next ? { page: `${options.next}` } : {}),
+    };
+
+    const url = createURL("recent", {
+      searchParams,
+      additionalPath: `/${customerId}`,
+    });
+
+    return sendRequest(url).then(transformGifResponse);
+  },
+);
+
+export const shareEvent = async (
+  slug: string,
+  searchTerm?: string,
+): Promise<void> => {
   const customerId = await getCustomerId();
 
-  const url = new URL(`${getBaseURL("share")}/${slug}`);
+  const url = createURL("share", {
+    additionalPath: `/${slug}`,
+  });
 
   const body: KlipyShareRequest = {
     customer_id: customerId,
     q: searchTerm,
   };
 
-  const response = await fetch(url, {
+  await sendRequest(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
   });
-  if (!response.ok)
-    throw new Error(`Failed to report share: ${response.statusText}`);
 };
