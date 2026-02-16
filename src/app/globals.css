@@ -2,7 +2,7 @@
 @plugin "tailwindcss-animate";
 
 :root {
-  --background: oklch(0.13 0.028 261.692);
+  --background: black;
   --foreground: oklch(0.985 0.002 247.839);
   --card: oklch(0.13 0.028 261.692);
   --card-foreground: oklch(0.985 0.002 247.839);
