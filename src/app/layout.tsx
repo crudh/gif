@@ -28,17 +28,28 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
         />
       </head>
       <body className="px-4">
-        <div className="flex sticky pr-1 pl-1 pb-1 pt-2 top-0 bg-black z-50">
-          <Link href="/" aria-label="Go to start page">
-            <Image
-              src="/images/icons/icon-512x512.png"
-              alt="gifs.run logo"
-              width="64"
-              height="64"
-            />
-          </Link>
-          <div className="pl-4 flex items-center w-full">
-            <Search />
+        <div className="flex flex-col sticky pr-1 pl-1 pb-1 pt-2 top-0 bg-black z-50">
+          <nav className="flex justify-end w-full gap-4 text-xs pb-2 text-gray-400 ">
+            <Link href="/" className="hover:text-white">
+              Start
+            </Link>
+            |
+            <Link href="/recent" className="hover:text-white">
+              Share history
+            </Link>
+          </nav>
+          <div className="flex w-full">
+            <Link href="/" aria-label="Go to start page">
+              <Image
+                src="/images/icons/icon-512x512.png"
+                alt="gifs.run logo"
+                width="64"
+                height="64"
+              />
+            </Link>
+            <div className="pl-4 flex items-center w-full">
+              <Search />
+            </div>
           </div>
         </div>
         <div className="pt-2">{children}</div>
