@@ -11,7 +11,7 @@ const RecentPage = async () => {
 
   return (
     <div className="flex flex-col items-center pt-10">
-      <h1 className="text-2xl font-bold mb-4 text-center">Share history</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Recent shares</h1>
       {!hasRecents && (
         <img
           src="https://static.klipy.com/ii/7607a26399874a14744aa5e7accfa062/17/ba/ZpPeyNLi.gif"

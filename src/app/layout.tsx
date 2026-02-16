@@ -35,7 +35,7 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
             </Link>
             |
             <Link href="/recent" className="hover:text-white">
-              Share history
+              Recent shares
             </Link>
           </nav>
           <div className="flex w-full">

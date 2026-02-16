@@ -10,7 +10,7 @@ export const testLayout = async (page: Page) => {
   await expect(startLink).toBeVisible();
   await expect(startLink).toHaveAttribute("href", "/");
 
-  const recentLink = page.getByRole("link", { name: "Share history" });
+  const recentLink = page.getByRole("link", { name: "Recent shares" });
   await expect(recentLink).toBeVisible();
   await expect(recentLink).toHaveAttribute("href", "/recent");
 
