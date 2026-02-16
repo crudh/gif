@@ -1,4 +1,5 @@
 import {
+  klipyRecentHandler,
   klipySearchHandler,
   klipyShareHandler,
   klipyTrendingHandler,
@@ -7,5 +8,6 @@ import {
 export const defaultHandlers = [
   klipyTrendingHandler(),
   klipySearchHandler(),
+  klipyRecentHandler(),
   klipyShareHandler(),
 ];

@@ -6,7 +6,18 @@ export const testLayout = async (page: Page) => {
   const logo = page.getByRole("img", { name: "gifs.run logo" });
   await expect(logo).toBeVisible();
 
-  const logoLink = page.getByRole("link", { name: "Go to start page" });
+  const startLink = page.getByRole("link", { name: "Start", exact: true });
+  await expect(startLink).toBeVisible();
+  await expect(startLink).toHaveAttribute("href", "/");
+
+  const recentLink = page.getByRole("link", { name: "Recent shares" });
+  await expect(recentLink).toBeVisible();
+  await expect(recentLink).toHaveAttribute("href", "/recent");
+
+  const logoLink = page.getByRole("link", {
+    name: "Go to start page",
+    exact: true,
+  });
   await expect(logoLink).toBeVisible();
   await expect(logoLink).toHaveAttribute("href", "/");
 

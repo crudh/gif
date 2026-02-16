@@ -35,8 +35,23 @@ export const klipySearchHandler = (
     return HttpResponse.json(response, { status });
   });
 
+export const klipyRecentHandler = (
+  status: number = 200,
+  response: KlipyGifResponse = mockedTrendingResponse,
+  options?: { delay: DelayMode | number },
+) =>
+  http.get(`${klipyBaseUrl}/:apiKey/gifs/recent/:cid`, async () => {
+    if (options?.delay) {
+      await delay(options.delay);
+    }
+
+    if (!isOkStatus(status)) return new HttpResponse(null, { status });
+
+    return HttpResponse.json(response, { status });
+  });
+
 export const klipyShareHandler = (status: number = 200) =>
-  http.get(`${klipyBaseUrl}/:apiKey/gifs/share/:slug`, () => {
+  http.post(`${klipyBaseUrl}/:apiKey/gifs/share/:slug`, () => {
     if (!isOkStatus(status)) return new HttpResponse(null, { status });
 
     return HttpResponse.json({}, { status });

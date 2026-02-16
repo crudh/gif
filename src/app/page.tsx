@@ -11,19 +11,11 @@ const IndexPage = async () => {
     <GifsGrid>
       <GifsGrid>
         {gifsResult.gifs.map((gif, index) => (
-          <GifPreview
-            key={`${gif.id}-${index}`}
-            gif={gif}
-            searchTerm="trending"
-          />
+          <GifPreview key={`${gif.id}-${index}`} gif={gif} />
         ))}
       </GifsGrid>
       {gifsResult.next && (
-        <MoreGifs
-          searchTerm="trending"
-          initialResult={gifsResult}
-          onMoreGifs={handleTrendingGifs}
-        />
+        <MoreGifs initialResult={gifsResult} onMoreGifs={handleTrendingGifs} />
       )}
     </GifsGrid>
   );
