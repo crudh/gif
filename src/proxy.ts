@@ -13,14 +13,15 @@ const proxy = (request: NextRequest) => {
   const response = NextResponse.next();
 
   const uid = request.cookies.get("cid");
-  if (!uid?.value) {
-    response.cookies.set("cid", randomUUID(), {
-      path: "/",
-      sameSite: "strict",
-      httpOnly: true,
-      secure: true,
-    });
-  }
+  const value = uid?.value ?? randomUUID();
+
+  response.cookies.set("cid", value, {
+    maxAge: 60 * 60 * 24 * 365, // reset 1-year expiry on each visit
+    path: "/",
+    sameSite: "strict",
+    httpOnly: true,
+    secure: true,
+  });
 
   return response;
 };
