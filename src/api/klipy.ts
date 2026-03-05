@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { gifLimit, klipyApiKey, klipyBaseUrl } from "@/constants";
 import type { Gif, GifsResult, SearchOptions } from "@/types/Gif";
 import type {
@@ -63,64 +62,64 @@ const transformGifResponse = (response: KlipyGifResponse): GifsResult => ({
   gifs: response.data.data.map(transformGif),
 });
 
-export const searchGifs = cache(
-  async (searchTerm: string, options?: SearchOptions): Promise<GifsResult> => {
-    const customerId = await getCustomerId();
+export const searchGifs = async (
+  searchTerm: string,
+  options?: SearchOptions,
+): Promise<GifsResult> => {
+  const customerId = await getCustomerId();
 
-    const searchParams: KlipySearchParams = {
-      q: searchTerm,
-      customer_id: customerId,
-      per_page: `${gifLimit}`,
-      content_filter: contentFilter,
-      format_filter: formatFilter,
-      ...(options?.next ? { page: `${options.next}` } : {}),
-    };
+  const searchParams: KlipySearchParams = {
+    q: searchTerm,
+    customer_id: customerId,
+    per_page: `${gifLimit}`,
+    content_filter: contentFilter,
+    format_filter: formatFilter,
+    ...(options?.next ? { page: `${options.next}` } : {}),
+  };
 
-    const url = createURL("search", {
-      searchParams,
-    });
+  const url = createURL("search", {
+    searchParams,
+  });
 
-    return sendRequest(url).then(transformGifResponse);
-  },
-);
+  return sendRequest(url).then(transformGifResponse);
+};
 
-export const trendingGifs = cache(
-  async (options?: SearchOptions): Promise<GifsResult> => {
-    const customerId = await getCustomerId();
+export const trendingGifs = async (
+  options?: SearchOptions,
+): Promise<GifsResult> => {
+  const customerId = await getCustomerId();
 
-    const searchParams: KlipyTrendingParams = {
-      customer_id: customerId,
-      per_page: `${gifLimit}`,
-      format_filter: formatFilter,
-      ...(options?.next ? { page: `${options.next}` } : {}),
-    };
+  const searchParams: KlipyTrendingParams = {
+    customer_id: customerId,
+    per_page: `${gifLimit}`,
+    format_filter: formatFilter,
+    ...(options?.next ? { page: `${options.next}` } : {}),
+  };
 
-    const url = createURL("trending", {
-      searchParams,
-    });
+  const url = createURL("trending", {
+    searchParams,
+  });
 
-    return sendRequest(url).then(transformGifResponse);
-  },
-);
+  return sendRequest(url).then(transformGifResponse);
+};
 
-export const recentGifs = cache(
-  async (options?: SearchOptions): Promise<GifsResult> => {
-    const customerId = await getCustomerId();
+export const recentGifs = async (
+  options?: SearchOptions,
+): Promise<GifsResult> => {
+  const customerId = await getCustomerId();
 
-    const searchParams: KlipyRecentParams = {
-      per_page: "32", // 32 is max for this endpoint
-      format_filter: formatFilter,
-      ...(options?.next ? { page: `${options.next}` } : {}),
-    };
+  const searchParams: KlipyRecentParams = {
+    per_page: "32", // 32 is max for this endpoint
+    ...(options?.next ? { page: `${options.next}` } : {}),
+  };
 
-    const url = createURL("recent", {
-      searchParams,
-      additionalPath: `/${customerId}`,
-    });
+  const url = createURL("recent", {
+    searchParams,
+    additionalPath: `/${customerId}`,
+  });
 
-    return sendRequest(url).then(transformGifResponse);
-  },
-);
+  return sendRequest(url).then(transformGifResponse);
+};
 
 export const shareEvent = async (
   slug: string,
