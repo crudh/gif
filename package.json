@@ -39,11 +39,11 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
-    "@vercel/analytics": "^1.6.1",
+    "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
-    "next": "^16.1.6",
+    "next": "^16.2.0",
     "next-themes": "^0.4.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
@@ -53,24 +53,24 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.3",
-    "@next/eslint-plugin-next": "^16.1.6",
+    "@eslint/js": "^9.39.4",
+    "@next/eslint-plugin-next": "^16.2.0",
     "@playwright/test": "^1.58.2",
-    "@tailwindcss/postcss": "^4.2.1",
-    "@types/node": "^24.10.12",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@types/node": "^24.12.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
     "babel-plugin-react-compiler": "^1.0.0",
-    "eslint": "^9.39.3",
-    "eslint-config-next": "^16.1.6",
+    "eslint": "^9.39.4",
+    "eslint-config-next": "^16.2.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.0.1",
-    "msw": "^2.12.10",
+    "msw": "^2.12.13",
     "postcss": "^8.5.8",
     "prettier": "^3.8.1",
-    "tailwindcss": "^4.2.1",
+    "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3"
   },
-  "packageManager": "pnpm@10.18.3+sha512.bbd16e6d7286fd7e01f6b3c0b3c932cda2965c06a908328f74663f10a9aea51f1129eea615134bf992831b009eabe167ecb7008b597f40ff9bc75946aadfb08d"
+  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be"
 }
