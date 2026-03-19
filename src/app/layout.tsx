@@ -58,7 +58,7 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
             src="/images/klipy.svg"
             alt="Powered by Klipy"
             width="198"
-            height="25"
+            height="33"
           />
         </div>
         <Toaster />

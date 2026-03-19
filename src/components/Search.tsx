@@ -53,7 +53,7 @@ export const Search = () => {
             src="/images/klipy.svg"
             alt="Search by Klipy"
             width="198"
-            height="25"
+            height="33"
           />
         </div>
       </div>
