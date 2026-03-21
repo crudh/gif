@@ -54,6 +54,7 @@ export const Search = () => {
             alt="Search by Klipy"
             width="198"
             height="33"
+            loading="eager"
           />
         </div>
       </div>

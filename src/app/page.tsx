@@ -3,8 +3,10 @@ import { trendingGifs } from "@/api/klipy";
 import { GifPreview } from "@/components/GifPreview";
 import { GifsGrid } from "@/components/GifsGrid";
 import { MoreGifs } from "@/components/MoreGifs";
+import { PageLoading } from "@/components/PageLoading";
+import { Suspense } from "react";
 
-const IndexPage = async () => {
+const Gifs = async () => {
   const gifsResult = await trendingGifs();
 
   return (
@@ -18,6 +20,14 @@ const IndexPage = async () => {
         <MoreGifs initialResult={gifsResult} onMoreGifs={handleTrendingGifs} />
       )}
     </GifsGrid>
+  );
+};
+
+const IndexPage = async () => {
+  return (
+    <Suspense fallback={<PageLoading />}>
+      <Gifs />
+    </Suspense>
   );
 };
 

@@ -4,8 +4,10 @@ import { recentGifs } from "@/api/klipy";
 import { GifPreview } from "@/components/GifPreview";
 import { GifsGrid } from "@/components/GifsGrid";
 import { MoreGifs } from "@/components/MoreGifs";
+import { PageLoading } from "@/components/PageLoading";
+import { Suspense } from "react";
 
-const RecentPage = async () => {
+const Recents = async () => {
   const gifsResult = await recentGifs();
   const hasRecents = gifsResult.gifs.length > 0;
 
@@ -35,6 +37,14 @@ const RecentPage = async () => {
         </GifsGrid>
       )}
     </div>
+  );
+};
+
+const RecentPage = async () => {
+  return (
+    <Suspense fallback={<PageLoading />}>
+      <Recents />
+    </Suspense>
   );
 };
 

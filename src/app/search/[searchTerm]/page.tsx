@@ -3,10 +3,16 @@ import { searchGifs } from "@/api/klipy";
 import { GifPreview } from "@/components/GifPreview";
 import { GifsGrid } from "@/components/GifsGrid";
 import { MoreGifs } from "@/components/MoreGifs";
+import { PageLoading } from "@/components/PageLoading";
+import { Suspense } from "react";
 
-const SearchResultPage = async ({
+const Gifs = async ({
   params,
-}: PageProps<"/search/[searchTerm]">) => {
+}: {
+  params: Promise<{
+    searchTerm: string;
+  }>;
+}) => {
   const { searchTerm: searchTermParam } = await params;
   const searchTerm = decodeURIComponent(searchTermParam);
   const gifsResult = await searchGifs(searchTerm);
@@ -30,6 +36,16 @@ const SearchResultPage = async ({
         />
       )}
     </GifsGrid>
+  );
+};
+
+const SearchResultPage = async ({
+  params,
+}: PageProps<"/search/[searchTerm]">) => {
+  return (
+    <Suspense fallback={<PageLoading />}>
+      <Gifs params={params} />
+    </Suspense>
   );
 };
 
