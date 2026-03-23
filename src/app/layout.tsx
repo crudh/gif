@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
 import { Search } from "@/components/Search";
 import { Toaster } from "@/components/ui/sonner";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "gifs.run - the fastest way to share gifs",
@@ -48,7 +49,9 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
               />
             </Link>
             <div className="pl-4 flex items-center w-full">
-              <Search />
+              <Suspense>
+                <Search />
+              </Suspense>
             </div>
           </div>
         </div>
