@@ -30,7 +30,7 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
       </head>
       <body className="px-4">
         <div className="flex flex-col sticky pr-1 pl-1 pb-1 pt-2 top-0 bg-black z-50">
-          <nav className="flex justify-end w-full gap-4 text-xs pb-2 text-gray-400 ">
+          <nav className="flex justify-end w-full gap-4 text-xs pb-2 text-gray-400">
             <Link href="/" className="hover:text-white">
               Start
             </Link>
@@ -55,15 +55,15 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
             </div>
           </div>
         </div>
-        <div className="pt-2">{children}</div>
-        <div className="flex justify-center pt-8 pb-2">
+        <main className="pt-2">{children}</main>
+        <footer className="flex justify-center pt-8 pb-2">
           <Image
             src="/images/klipy.svg"
             alt="Powered by Klipy"
             width="198"
             height="33"
           />
-        </div>
+        </footer>
         <Toaster />
         <Analytics />
       </body>
