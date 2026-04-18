@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
 import { type Server, createServer } from "http";
-import { setupServer, type SetupServerApi } from "msw/node";
+import { setupServer, type SetupServer } from "msw/node";
 import type { AddressInfo } from "net";
 import next from "next";
 import path from "path";
@@ -8,7 +8,7 @@ import { parse } from "url";
 import { defaultHandlers } from "@/test/api/defaultHandlers";
 
 export const test = base.extend<
-  { requestInterceptor: SetupServerApi },
+  { requestInterceptor: SetupServer },
   { baseUrl: string }
 >({
   baseUrl: [
@@ -41,7 +41,7 @@ export const test = base.extend<
   ],
   requestInterceptor: [
     async ({ browser: _browser }, use) => {
-      let requestInterceptor: SetupServerApi;
+      let requestInterceptor: SetupServer;
 
       await use(
         (() => {

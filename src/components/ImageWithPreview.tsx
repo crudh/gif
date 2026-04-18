@@ -19,7 +19,6 @@ export const ImageWithPreview = ({
   useEffect(() => {
     if (!imageRef.current) return;
     if (imageRef.current.complete) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsLoaded(true);
       return;
     }
