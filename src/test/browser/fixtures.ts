@@ -45,7 +45,6 @@ export const test = base.extend<
 
       await use(
         (() => {
-          // let net = defineNetwork
           requestInterceptor = setupServer(...defaultHandlers);
 
           requestInterceptor.listen({
