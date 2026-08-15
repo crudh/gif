@@ -10,7 +10,7 @@ const nextConfig = {
     },
   },
   experimental: {
-    turbopackFileSystemCacheForDev: true,
+    useTypeScriptCli: false,
   },
 };
 
