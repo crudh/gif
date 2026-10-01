@@ -48,7 +48,7 @@ export const test = base.extend<
           requestInterceptor = setupServer(...defaultHandlers);
 
           requestInterceptor.listen({
-            onUnhandledRequest: "error",
+            onUnhandledFrame: "error",
           });
 
           return requestInterceptor;
