@@ -59,13 +59,7 @@ test("scrolling to load more gifs", async ({
   page,
   baseUrl,
   requestInterceptor,
-  browserName,
 }) => {
-  test.skip(
-    browserName === "webkit",
-    "Flaky test in webkit, works in real browser",
-  );
-
   requestInterceptor.use(
     klipyRecentHandler(200, mockedTrendingResponse, { delay: 200 }),
   );
