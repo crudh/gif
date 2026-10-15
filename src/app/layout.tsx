@@ -62,6 +62,7 @@ const RootLayout = ({ children }: LayoutProps<"/">) => {
             alt="Powered by Klipy"
             width="198"
             height="33"
+            loading="lazy"
           />
         </footer>
         <Toaster />
