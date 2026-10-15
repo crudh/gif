@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test";
 import { gifLimit } from "@/constants";
 import { test } from "@/test/browser/fixtures";
-import { testLayout } from "@/test/browser/shared";
+import { getGifs, gifsLocator, testLayout } from "@/test/browser/shared";
 import { getTabKey } from "@/test/browser/utils";
 import { mockedTrendingResponse } from "@/test/api/klipy/mocks/trendingResponse";
 import { klipyRecentHandler } from "@/test/api/klipy";
@@ -18,9 +18,7 @@ test("initial render", async ({ page, baseUrl }) => {
     page.getByRole("heading", { name: "Recent shares" }),
   ).toBeVisible();
 
-  const gifs = page.getByRole("button", {
-    name: /Load high quality preview of gif with description/,
-  });
+  const gifs = await getGifs(page);
   await expect(gifs).toHaveCount(gifLimit);
 
   const emptyImage = page.getByRole("img", {
@@ -48,9 +46,7 @@ test("empty history", async ({ page, baseUrl, requestInterceptor }) => {
     page.getByRole("heading", { name: "Recent shares" }),
   ).toBeVisible();
 
-  const gifs = page.getByRole("button", {
-    name: /Load high quality preview of gif with description/,
-  });
+  const gifs = gifsLocator(page);
   await expect(gifs).toHaveCount(0);
 
   const emptyImage = page.getByRole("img", {
@@ -76,9 +72,7 @@ test("scrolling to load more gifs", async ({
 
   await page.goto(`${baseUrl}/recent`);
 
-  const gifs = page.getByRole("button", {
-    name: /Load high quality preview of gif with description/,
-  });
+  const gifs = await getGifs(page);
   await expect(gifs).toHaveCount(gifLimit);
 
   await page.evaluate(() => {
@@ -101,9 +95,7 @@ test("handle error on scroll", async ({
 
   await page.goto(`${baseUrl}/recent`);
 
-  const gifs = page.getByRole("button", {
-    name: /Load high quality preview of gif with description/,
-  });
+  const gifs = await getGifs(page);
   await expect(gifs).toHaveCount(gifLimit);
 
   requestInterceptor.use(klipyRecentHandler(500, undefined, { delay: 200 }));
@@ -128,9 +120,7 @@ test("selecting a gif and copying the url", async ({
 }) => {
   await page.goto(`${baseUrl}/recent`);
 
-  const gifs = page.getByRole("button", {
-    name: /Load high quality preview of gif with description/,
-  });
+  const gifs = await getGifs(page);
   const firstGif = gifs.first();
 
   await firstGif.click();
@@ -157,6 +147,7 @@ test("selecting a gif and copying the url", async ({
 test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
   await page.goto(`${baseUrl}/recent`);
   const tabKey = getTabKey(browserName);
+  const gifs = await getGifs(page);
 
   const searchInput = page.getByRole("textbox", { name: "search" });
   await expect(searchInput).toBeFocused();
@@ -168,9 +159,6 @@ test("keyboard navigation of gifs", async ({ page, baseUrl, browserName }) => {
 
   await page.keyboard.press(tabKey);
 
-  const gifs = page.getByRole("button", {
-    name: /Load high quality preview of gif with description/,
-  });
   const firstGif = gifs.first();
   await expect(firstGif).toBeFocused();
 

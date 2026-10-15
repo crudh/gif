@@ -32,3 +32,16 @@ export const testLayout = async (page: Page) => {
   const footer = page.getByRole("img", { name: "Powered by Klipy" });
   await expect(footer).toBeVisible();
 };
+
+export const gifsLocator = (page: Page) =>
+  page.getByRole("button", {
+    name: /Load high quality preview of gif with description/,
+  });
+
+// Gifs stream in after the layout via Suspense, so wait for them before
+// interacting (e.g. tabbing) or focus can skip past the not yet rendered list.
+export const getGifs = async (page: Page) => {
+  const gifs = gifsLocator(page);
+  await expect(gifs.first()).toBeVisible();
+  return gifs;
+};
