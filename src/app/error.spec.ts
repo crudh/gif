@@ -1,14 +1,12 @@
 import { type Page, expect } from "@playwright/test";
 import { test } from "@/test/browser/fixtures";
-import { testLayout } from "@/test/browser/shared";
+import { gifsLocator, testLayout } from "@/test/browser/shared";
 import { klipySearchHandler, klipyTrendingHandler } from "@/test/api/klipy";
 
 const testPage = async (page: Page) => {
   await testLayout(page);
 
-  const gifs = page.getByRole("button", {
-    name: /Load high quality preview of gif with description/,
-  });
+  const gifs = gifsLocator(page);
   await expect(gifs).toHaveCount(0);
 
   const reloadButton = page.getByRole("button", {
