@@ -4,7 +4,6 @@ import { setupServer, type SetupServer } from "msw/node";
 import type { AddressInfo } from "net";
 import next from "next";
 import path from "path";
-import { parse } from "url";
 import { defaultHandlers } from "@/test/api/defaultHandlers";
 
 export const test = base.extend<
@@ -24,8 +23,7 @@ export const test = base.extend<
 
       const server: Server = await new Promise((resolve) => {
         const server = createServer((req, res) => {
-          const parsedUrl = parse(req.url!, true);
-          handle(req, res, parsedUrl);
+          handle(req, res);
         });
 
         server.listen((error: unknown) => {

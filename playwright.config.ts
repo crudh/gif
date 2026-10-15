@@ -7,8 +7,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  quiet: !!process.env.CI,
-  reporter: process.env.CI ? "dot" : "list",
+  quiet: true,
+  reporter: "list",
   use: {
     trace: "on-first-retry",
   },
